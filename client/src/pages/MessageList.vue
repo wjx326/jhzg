@@ -1,13 +1,14 @@
 <template>
-    <div>
-        <el-row :gutter="200">
-            <el-col :span="10">
-                <div class="grid-content ep-bg-purple" />
-                <h3 style="text-align: center;">消息列表</h3>
-                <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto;">
+    <div style="width: fit-content; margin: auto; background-color: white; border-radius: 5px; height: fit-content;">
+        <h3 style="text-align: center;padding: 5px;">消息列表</h3>
+        <el-row :gutter="80">
+            <el-col :span="12">
+                
+                <el-scrollbar height="350px">
+                <ul v-infinite-scroll="load" class="message-list">
                     <li v-for="(message, index) in displayedMessages" 
                     :key="message.id" 
-                    class="infinite-list-item"
+                    class="message-list-item"
                     @click="selectMessage(message)">
                         <el-row :gutter="50">
                             <el-col :span="4">
@@ -24,18 +25,20 @@
                         </el-row>
                     </li>
                 </ul> 
+            </el-scrollbar>
             </el-col>
-            <el-col :span="10">
-                <div class="grid-content ep-bg-purple" />
-                <ul class="message-detail-list" style="list-style-type: none; padding: 0;">
+            <el-col :span="12">
+                <div class="">
+                    <el-scrollbar height="400px">
+                        <ul class="message-detail-list" style="list-style-type: none; ">
                     <!-- 遍历当前选中消息的所有详情 -->
                     <el-space direction="vertical" :size="25">
                     <el-card 
                     v-if="currentMessage" 
                     v-for="(detail, index) in currentMessage.detail" 
                     :key="index" 
-                    class="box-card" 
-                    style="width: 350px">
+                    class="message-detail-item" 
+                    style="width: 320px">
                         <el-row :gutter="20">
                         <el-col :span="4">
                             <el-avatar :size="45" :src="currentMessage.avatarUrl" /> 
@@ -51,6 +54,9 @@
                     </el-card>
                 </el-space>
                 </ul>
+            </el-scrollbar>
+                </div>
+               
             </el-col>
         </el-row>
        
@@ -59,88 +65,50 @@
     </div>
 </template>
 
-<script  setup>
-    import { computed, ref } from 'vue';  
+<script setup>
+    import { computed, ref ,onMounted} from 'vue';  
     import { useMessageStore } from '../stores/messageStore'; 
 
     const messageStore = useMessageStore(); 
-    const count = ref(10)
+    const count = ref(0)
     const currentMessage = ref(null); 
 
     const displayedMessages = computed(() => {  
       return messageStore.messages.slice(0, count.value);  
     });
 
-    // onMounted(() => {
-    //     currentMessage.value = displayedMessages.value[0];
-    // });
+    onMounted(() => {  
+        currentMessage.value = displayedMessages.value[0];  
+    });
 
     let selectMessage = (message) => {
     currentMessage.value = message; // 更新响应式状态
     };
 
     const load = () => {
-        // if (count.value < messageStore.messages.length) {  
+        if (count.value < 20) {  
         count.value += 10;  
         messageStore.loadMoreMessages()
         console.log("messageStore.messages",messageStore.messages)
-    //   }
+      }
        
     }
 </script>
 
 <style>
-.infinite-list {
-  height: 300px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.infinite-list li:first-child {
-  background-color: #d9ecff;
-}
-.infinite-list .infinite-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 65px;
-  margin: 10px;
-  line-height: 25px;
-  color: rgb(0, 0, 0);
-
-}
-.infinite-list .infinite-list-item + .list-item {
-  margin-top: 10px;
-}
-.infinite-list-item:hover
-{
-    background-color: #ecf5ff;
-}
-
-/* 滚动条整体宽度 */  
-.infinite-list::-webkit-scrollbar {  
-    width: 5px;  
-}  
-  
-/* 滚动条滑块 */  
-.infinite-list::-webkit-scrollbar-thumb {  
-    background: #888; /* 滑块颜色 */  
-    border-radius: 10px; /* 滑块边角圆滑度 */  
-}  
-  
-/* 滚动条轨道 */  
-.infinite-list::-webkit-scrollbar-track {  
-    background: #f1f1f1; /* 轨道颜色 */  
-    border-radius: 10px; /* 轨道边角圆滑度 */  
-}  
-  
-/* 当鼠标悬停在滚动条滑块上时 */  
-.infinite-list::-webkit-scrollbar-thumb:hover {  
-    background: #555; /* 滑块颜色 */  
-}
 .message-list
 {
-    width: 30%;
+    list-style-type: none;
+}
+
+.message-list-item
+{
+    margin-bottom: 20px;
+    padding: 10px;
+}
+.message-list-item:hover
+{
+background-color: aliceblue;
 }
 
 .bold-text {  
@@ -151,6 +119,11 @@
     font-size: small;
     font-weight:400;
     color: #888;
+}
+.message-detail-list
+{
+    margin-left: -50px;
+    margin-top: 20px;
 }
 .message-detail-item
 {
