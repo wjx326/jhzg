@@ -29,11 +29,29 @@
                             <el-input  style="width: 100%" placeholder="请输入新密码" type="password" show-password/>
                         </el-form-item>
                         <el-form-item style="margin-left: 100px;width: 50%">
-                            <el-button type="primary" style="margin: auto; width:80%;">修改</el-button>
-                        </el-form-item>
+                            <el-button type="primary" style="margin: auto; width:40%;" @click="handleBackClick">返回</el-button>
+                            <el-button type="primary" style="margin: auto; width:40%;" @click="handleConfirmClick">修改</el-button>
+                         </el-form-item>
                     </el-form>
                 </div>
             </div>
         </div>
     </div>
 </template>
+<script setup>
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router';
+const router = useRouter();
+function handleBackClick() {
+    router.push('/login');
+} 
+function handleConfirmClick() {
+    ElMessage({
+    message: '修改成功',
+    type: 'success',
+  })
+    router.push('/login');
+} 
+
+
+</script>

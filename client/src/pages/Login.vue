@@ -18,15 +18,15 @@
                             <el-input  type="password"/>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" style="margin-left: 50px; width:80%;margin-top: 30px;">登录</el-button>
+                            <el-button type="primary" style="margin: auto; width:80%;margin-top: 30px;" @click="handleLoginClick">登录</el-button>
                         </el-form-item>
                     </el-form>
                     <el-row >
                         <el-col :span="5" :offset="10">
-                            <el-link type="info">忘记密码？</el-link>
+                            <el-link type="info" @click="handleWordClick">忘记密码？</el-link>
                         </el-col>
                         <el-col :span="5" :offset="4">
-                            <el-link type="info">立即注册!</el-link>
+                            <el-link type="info" @click="handleRegisterClick">立即注册!</el-link>
                         </el-col>
                     </el-row>
                 </div>
@@ -34,3 +34,20 @@
         </div>
     </div>
 </template>
+<script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+function handleLoginClick() {
+    router.push('/');
+    ElMessage({
+    message: '登录成功',
+    type: 'success',
+  })
+} 
+function handleRegisterClick() {  
+    router.push('/register');
+}  
+function handleWordClick() {  
+    router.push('/changepassword');
+}  
+</script>
