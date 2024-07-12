@@ -162,8 +162,12 @@
    
    <style scoped>
    .home_contain{
-       width: 90%;
+       width: 80%;
        margin: auto;
+       background-color: white;
+       padding-left: 50px;
+       padding-right: 50px;
+       border-radius: 10px;
    }
    .custom-font {  
      color:#333333;

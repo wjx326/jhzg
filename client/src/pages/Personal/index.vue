@@ -1,5 +1,5 @@
 <template>
-<div style="width:100%;margin: auto;display: flex;">
+<div style="width:100%;margin: auto;display: flex;padding-bottom: 50px;">
     <div class="sidebar" style="width:22%">
         <el-menu
             :default-active="activeIndex"
