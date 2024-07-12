@@ -1,6 +1,6 @@
 <template>
-<div style="width: 1300px;margin: auto;display: flex;">
-    <div class="sidebar" style="width:150px">
+<div style="width:100%;margin: auto;display: flex;">
+    <div class="sidebar" style="width:22%">
         <el-menu
             :default-active="activeIndex"
             class="el-menu-demo"
@@ -31,15 +31,23 @@
             </el-sub-menu>
         </el-menu>
     </div>
-    <div class="contain" style="background-color:#f1f1f1;width: 1150px;height: auto;">
-        <ChangeSelfInfo />
+    <div class="contain" style="background-color:#f3f6f8;width: 100%;height: auto">
+        <CollectShops />
     </div>
 </div>
 </template>
 
 <script setup>
     import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,User,Location,Setting} from '@element-plus/icons-vue'
-    import ChangeSelfInfo from "./PersonalPage/ChangeEmile/index.vue"
+    import ChangeSelfInfo from "./PersonalPage/ChangeEmile.vue"
+    import Front from "./PersonalPage/Front.vue"
+    import Order from './PersonalPage/Order.vue'
+    import Comment from './PersonalPage/Comment.vue'
+    import CollectShops from './PersonalPage/CollectShops.vue'
+    import CollectGoods from './PersonalPage/CollectGoods.vue'
+    import AddressList from './PersonalPage/AddressList.vue'
+
+
 </script>
 
 <style>

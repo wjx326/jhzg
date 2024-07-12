@@ -1,19 +1,20 @@
 <script setup>
 import { h, ref } from 'vue'
 import { ElDivider } from 'element-plus'
-import { useUserStore } from '../stores/userStore';
+import { useUserStore } from '../../../stores/userStore';
 import { ArrowRight } from '@element-plus/icons-vue'
 
 const userStore = useUserStore(); 
 
 
-const size = ref(40)
+const size = ref(50)
 const spacer = h(ElDivider, { direction: 'vertical' })
 </script>
 
 <template>
+    <div style="width: fit-content; margin: 50px auto;">
     <el-space direction="vertical" class="info-box" >
-      <el-card  class="box-card" style="width: 700px">
+      <el-card  class="box-card" style="width: 900px">
         <el-row>
             <el-col :span="4"><div class="grid-content ep-bg-purple" />
                 <el-avatar  :size="85" :fit="'fill'" :src="userAvatarurl" />
@@ -32,14 +33,13 @@ const spacer = h(ElDivider, { direction: 'vertical' })
                 </el-row><br>
                 <el-row>
                     <el-tag type="warning">默认</el-tag>
-                    {{ address }}
+                    {{ 'address' }}
                 </el-row>
             </div>
             </el-col>
         </el-row><br><br>
         <el-row>
-            
-                <el-space :size="size" :spacer="spacer" style="text-align: center;">
+                <el-space :size="size" :spacer="spacer" style="text-align: center; margin-left: 30px;">
                 <div>
                     {{0}}<br>待付款
                 </div>
@@ -56,11 +56,10 @@ const spacer = h(ElDivider, { direction: 'vertical' })
                     {{0}}<br>退款/售后
                 </div>
             </el-space>
-           
         </el-row>
-        
       </el-card>
-      <el-card  class="box-card" style="width: 700px ">
+
+      <el-card  class="box-card" style="width: 900px; padding: 5px 10px 55px 10px;">
         <span style="">我的物流</span><br><br>
         <div style="text-align: center; ">
             <span style=" font-size: small; color: gray;">当前没有物流信息</span>
@@ -69,6 +68,7 @@ const spacer = h(ElDivider, { direction: 'vertical' })
         
     </el-card>
     </el-space>
+</div>
 </template>
 
 <style>

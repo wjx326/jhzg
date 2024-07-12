@@ -162,7 +162,7 @@
    
    <style scoped>
    .home_contain{
-       width: 1300px;
+       width: 90%;
        margin: auto;
    }
    .custom-font {  

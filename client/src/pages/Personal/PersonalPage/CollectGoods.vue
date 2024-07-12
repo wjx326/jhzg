@@ -143,8 +143,8 @@
 <script setup>
 import { h,ref } from 'vue';
 import { BottomRight,ShoppingCart,ChatDotSquare } from '@element-plus/icons-vue'
-import { useGoodsCommentStore } from '../stores/goodsCommentStore'; 
-import { useGoodsStore } from '../stores/goodsStore'; 
+import { useGoodsCommentStore } from '../../../stores/goodsCommentStore'; 
+import { useGoodsStore } from '../../../stores/goodsStore'; 
 
 import { ElDivider } from 'element-plus'
 

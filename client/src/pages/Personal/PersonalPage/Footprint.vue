@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1100px;background-color: white;margin:20px auto;">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    <div style="width: 98%;background-color: white;margin:20px auto;">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         <div style="height: 75px;padding-top:10px;margin-left: 20px;margin-right: 20px;" >
             <el-divider content-position="left">
                 <span style="font-weight: bold;margin-right:5px;">07.</span>
