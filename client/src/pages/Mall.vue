@@ -5,7 +5,7 @@
     </div>
 </template>
 <script setup>
-import Header from "../compoents/Header.vue";
+import Header from "../components/Header.vue";
 import Shop from "./Shop.vue";
 </script>
 <style>

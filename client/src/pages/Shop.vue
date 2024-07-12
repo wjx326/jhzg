@@ -1,5 +1,5 @@
 <template>
-    <div style=" width: 1300px; margin: auto;padding:20px;">
+    <div style=" width: 90%; margin: auto;padding:20px;">
         <div style="background-color: white;border-radius: 10px;padding: 20px;width: 100%;margin-bottom: 30px;">
             <el-row >
                 <el-col :span="3"><el-avatar shape="square" :size="120" :src="squareUrl" /></el-col>
@@ -23,10 +23,10 @@
         </div>
         <div style="background-color: white;border-radius: 10px;padding: 20px;width: 100%;margin-bottom: 50px;padding-bottom: 50px;">
             <el-row>
-                <el-col :span="5" style="font-size: x-large;">
+                <el-col :span="4" style="font-size: x-large;">
                     全部商品
                 </el-col>
-                <el-col :span="7" :offset="6">
+                <el-col :span="8" :offset="6">
                     <el-input
                         v-model="input"
                         style="width: 150px"
