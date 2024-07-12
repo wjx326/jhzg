@@ -36,9 +36,12 @@
     </div>
 </div>
 </template>
+
 <script setup>
-import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,User,Location,Setting} from '@element-plus/icons-vue'
-import ChangeSelfInfo from "./PersonalPage/ChangeEmile/index.vue"
+    import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,User,Location,Setting} from '@element-plus/icons-vue'
+    import ChangeSelfInfo from "./PersonalPage/ChangeEmile/index.vue"
 </script>
+
 <style>
+
 </style>
