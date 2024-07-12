@@ -1,12 +1,11 @@
-<script setup>
-import Personal from './pages/Mall.vue';
-
-</script>
-
-<template>
-    <Personal />
-</template>
-
-<style scoped>
-
-</style>
+<template>  
+    <div id="app">  
+      <router-view />  
+    </div>  
+  </template>  
+    
+  <script>  
+  export default {  
+    name: 'App'  
+  }  
+  </script>

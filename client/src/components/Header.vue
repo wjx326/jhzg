@@ -1,11 +1,26 @@
 <script setup>
     import { ref } from 'vue'
     import { Search,Message,ShoppingCart } from '@element-plus/icons-vue'
-
+    import { useRouter } from 'vue-router';
     const searchText = ref('')
     const titleImgUrl = ref('src/assets/img/title.png'); 
-
-
+    const router = useRouter();
+    function handleAvatarClick() { 
+        //这里条件判断，若当前无用户登录，则跳转登录，若有用户跳转个人界面
+        if(true){ 
+            router.push('/personal');
+        }
+        else{
+            router.push('/login');
+        }
+    } 
+    function handleMessageClick(){
+        router.push('/message');
+        console.log(555)
+    }
+    function handleCartClick(){
+        router.push('/personal/cart');
+    }
 </script>
 
 <template>
@@ -39,20 +54,20 @@
             </el-col>
 
             <el-col :span="2" :offset="1"><div class="avatar" />
-                <el-avatar
+                <el-avatar  @click="handleAvatarClick"
                 :size="55" :fit="contain" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
                 />
             </el-col>
 
-            <el-col :span="2"><div class="icon-2" />
-                <el-link href="#" :underline="false">  
-                    <el-icon class="icon" :size="32"><Message /></el-icon>消息中心  
+            <el-col :span="2"><div class="icon-2"/>
+                <el-link href="#/message" :underline="false">  
+                    <el-icon class="icon" :size="32" ><Message /></el-icon>消息中心  
                 </el-link>
             </el-col>
 
             <el-col :span="2" :offset="1"><div class="icon-2" />
-                <el-link href="#" :underline="false">  
-                    <el-icon class="icon" :size="32"><ShoppingCart /></el-icon>  
+                <el-link href="#/cart" :underline="false">  
+                    <el-icon class="icon" :size="32" @click="handleCartClick"><ShoppingCart /></el-icon>  
                 </el-link>
             </el-col>
         </el-row>

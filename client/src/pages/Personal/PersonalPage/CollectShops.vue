@@ -1,4 +1,6 @@
 <template>
+  <div style="width: 98%; height: fit-content; margin: auto;">
+    <div style="width: 98%;background-color: white; height: fit-content;">
   <el-row>
     <el-col :span="24">
         <ul class="cata-select-list">
@@ -22,6 +24,7 @@
           <el-button @click="" style="margin-top: 30px;">全部删除</el-button>
         </el-col>
   </el-row>
+</div>
   <el-row>
     <el-col :span="24">
         <el-space direction="vertical" :size="60">
@@ -93,11 +96,11 @@
     </div>
 
   </el-row>
-  
+</div>
   
 </template>
 
-<style>
+<style scoped>
 .el-row 
 {
   margin-bottom: 20px;
@@ -203,9 +206,10 @@
 <script setup>
 import { h,ref } from 'vue';
 import { Shop,Service,Star } from '@element-plus/icons-vue'
-import { useGoodsCommentStore } from '../stores/goodsCommentStore'; 
-import { useGoodsStore } from '../stores/goodsStore'; 
-import { useShopsStore } from '../stores/shopsStore'; 
+import { useGoodsCommentStore } from '../../../stores/goodsCommentStore'; 
+import { useGoodsStore } from '../../../stores/goodsStore'; 
+import { useShopsStore } from '../../../stores/shopsStore'; 
+
 
 import { ElDivider } from 'element-plus'
 
