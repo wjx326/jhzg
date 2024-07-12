@@ -1,11 +1,16 @@
 <template>
+    <div style="width: 98%; height: fit-content; margin: auto;">
+    <div style="width: 98%;
+    background-color: white;
+    height: fit-content;
+    margin: 10px 0px 20px 4px;">
   <el-row>
     <el-col :span="24">
         <ul class="cate-select-list">分类：
             <li class="cate-select-list-item selected"><el-link :underline="false" href="">全部分类</el-link></li>
         </ul>
     </el-col>
-    <el-col :span="17">
+    <el-col :span="20">
         <ul class="select-list">筛选条件：
             <li 
             v-for="(filter, index) in filters" 
@@ -22,9 +27,15 @@
           <el-button @click="" style="margin-top: 30px;">全部删除</el-button>
         </el-col>
   </el-row>
+</div>
+<div div style="width: 98%;
+    background-color: white;
+    height: fit-content;
+    margin: 10px 0px 20px 4px;">
   <el-row>
+    <div style="margin: 38px;">
     <el-col :span="24">
-        <el-space wrap :size="60">
+        <el-space wrap :size="50">
             <el-card v-for="i in 4" :key="i" class="good-card" shadow="hover">
               <el-link>
                 <el-checkbox v-model="checked1"  size="large" />
@@ -56,16 +67,18 @@
             </el-card>
         </el-space>
     </el-col>
-    <div style="margin-top: 30px;">
+  </div>
+    <div style="margin-top: 30px; margin-bottom:30px; margin-left: 20px;">
       <el-pagination background layout="prev, pager, next" :total="1000" />
     </div>
 
   </el-row>
-  
-  
+</div>
+</div>
+
 </template>
 
-<style>
+<style scoped>
 .el-row 
 {
   margin-bottom: 20px;
@@ -97,7 +110,7 @@
   display: flex; /* 父容器设置为flex布局 */  
   align-items: center; /* 如果需要，可以在这里设置子项的对齐方式 */  
   justify-content: space-between; 
-  width: 40%; /* 或者设置一个具体的宽度值 */ 
+  width:60%;  
 
 }
 .cate-select-list-item.selected .el-link 
@@ -129,10 +142,10 @@
 }
 .card-footer {  
     display: flex; /* 使用 Flexbox 布局 */  
-  justify-content: flex-start; /* 子项靠左对齐 */  
-  align-items: center; /* 垂直居中子项 */  
-  /* 移除可能的默认间距（如果需要的话） */  
-  font-size: 0; 
+    justify-content: flex-start; /* 子项靠左对齐 */  
+    align-items: center; /* 垂直居中子项 */  
+    /* 移除可能的默认间距（如果需要的话） */  
+    font-size: 0; 
 }  
 .card-footer .el-button {  
   margin: 0; /* 给按钮之间添加一些间距 */ 

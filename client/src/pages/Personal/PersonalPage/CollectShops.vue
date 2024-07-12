@@ -1,11 +1,11 @@
 <template>
   <div style="width: 98%; height: fit-content; margin: auto;">
-    <div style="width: 98%;background-color: white; height: fit-content;">
+    <div style="width: 98%;
+    background-color: white;
+    height: fit-content;
+    margin: 10px 0px 20px 4px;">
   <el-row>
     <el-col :span="24">
-        <ul class="cata-select-list">
-            <li class="cata-select-list-item selected"><el-link :underline="false" href="">全部店铺</el-link></li>
-        </ul>
     </el-col>
     <el-col :span="17">
         <ul class="select-list">
@@ -21,7 +21,7 @@
         </ul> 
     </el-col>
     <el-col :span="2"> 
-          <el-button @click="" style="margin-top: 30px;">全部删除</el-button>
+          <el-button @click="" style="margin-top: 25px;">全部删除</el-button>
         </el-col>
   </el-row>
 </div>
@@ -36,7 +36,7 @@
                 <el-image style="width: 200px; height: 200px" :src="shopsImgurl" :fit="'fill'" /><br> 
             </div><br>
             <div style="text-align: center;">
-                 {{ shopsStore.name }}
+                 {{ 'shopsStore.name' }}
             </div><br>
             <div style="text-align: center; ">
               <el-icon><Star /></el-icon> {{shopsStore.rate  }}
@@ -100,7 +100,7 @@
   
 </template>
 
-<style>
+<style scoped>
 .el-row 
 {
   margin-bottom: 20px;

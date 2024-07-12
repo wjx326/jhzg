@@ -32,7 +32,7 @@
         </el-menu>
     </div>
     <div class="contain" style="background-color:#f3f6f8;width: 100%;height: auto">
-        <CollectShops />
+        <AddressList />
     </div>
 </div>
 </template>
