@@ -1,14 +1,12 @@
 <template>
-<div class="common-layout">
-    <el-container>
-      <el-header>Header</el-header>
-      <el-main>Main</el-main>
-      <el-footer>Footer</el-footer>
-    </el-container>
-  </div>
+    <Header />
+    <div style="background-color: #f1f1f1;">
+        <Shop />
+    </div>
 </template>
 <script setup>
-
+import Header from "../compoents/Header.vue";
+import Shop from "./Shop.vue";
 </script>
 <style>
 

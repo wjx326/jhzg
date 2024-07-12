@@ -32,13 +32,13 @@
         </el-menu>
     </div>
     <div class="contain" style="background-color:#f1f1f1;width: 1150px;height: auto;">
-        <Footprint />
+        <ChangeSelfInfo />
     </div>
 </div>
 </template>
 <script setup>
 import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,User,Location,Setting} from '@element-plus/icons-vue'
-import Footprint from "./PersonalPage/Footprint.vue"
+import ChangeSelfInfo from "./PersonalPage/ChangeEmile/index.vue"
 </script>
 <style>
 </style>
