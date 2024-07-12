@@ -13,13 +13,9 @@
         else{
             router.push('/login');
         }
-    } 
-    function handleMessageClick(){
-        router.push('/message');
-        console.log(555)
     }
-    function handleCartClick(){
-        router.push('/personal/cart');
+    function handletitle(){
+        router.push('/')
     }
 </script>
 
@@ -36,6 +32,7 @@
                 :preview-src-list="srcList"
                 :initial-index="4"
                 fit="contain"
+                @click="handletitle()"
                 />
             </el-col>
 
