@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1100px;background-color: white;margin:20px auto;padding-bottom: 50px;height: 500px;">
+    <div style="width: 95%;background-color: white;margin:20px auto;padding-bottom: 50px;height: 500px;">
         <div style="width: 630px;margin: auto;padding-top: 50px;">
             <el-steps style="max-width: 600px" :active="active" finish-status="success">
                 <el-step title="验证邮箱" :icon="Edit"></el-step>
@@ -38,7 +38,7 @@
             </el-form>
         </div>
         <div  id="part3" style="width: 300px;margin: auto;padding-top: 50px;text-align: center;display: none;">
-            <img src="../../../../assets/img/success.png" style="width: 100px;height: 100px;">
+            <img src="../../../assets/img/success.png" style="width: 100px;height: 100px;">
             <p style="color:#303133;">修改成功</p>
             <el-button style="margin-top: 12px" @click="back">返回</el-button>
         </div>

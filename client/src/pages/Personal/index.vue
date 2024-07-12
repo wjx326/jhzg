@@ -1,6 +1,6 @@
 <template>
-<div style="width: 1300px;margin: auto;display: flex;">
-    <div class="sidebar" style="width:150px">
+<div style="width:100%;margin: auto;display: flex;">
+    <div class="sidebar" style="width:22%">
         <el-menu
             :default-active="activeIndex"
             class="el-menu-demo"
@@ -31,7 +31,7 @@
             </el-sub-menu>
         </el-menu>
     </div>
-    <div class="contain" style="background-color:#f1f1f1;width: 1150px;height: auto;">
+    <div class="contain" style="background-color:#f3f6f8;width: 100%;height: auto">
         <router-view></router-view>
     </div>
 </div>

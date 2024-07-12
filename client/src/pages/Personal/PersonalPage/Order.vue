@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1100px;background-color: white;margin:20px auto;">
+    <div style="width: 96%;background-color: white;margin:20px auto;">
         <div class="order_header" style="margin: 15px;">
             <el-menu
                 :default-active="activeIndex"

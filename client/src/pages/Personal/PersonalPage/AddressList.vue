@@ -1,5 +1,6 @@
 <template>
-  <div>
+<div style="width: 99%;margin: auto;  background-color: white;  border-radius: 5px; margin-top: 60px;">
+  <div style="width: 96%;margin: 20px auto; padding-top: 10px;">
     <h3 style="font-family: PingFangSC;color: #11192d;">我的收货地址</h3>
     <p style="margin-bottom: 24px;
     font-family: PingFangSC;
@@ -9,13 +10,23 @@
     letter-spacing: 0;
     line-height: 16px;">常用地址</p>
   </div>
-  <el-table :data="tableData" border >
-    <el-table-column prop="name" label="收货人" width="100" />
+  <div style="width: 96%;margin: 20px auto; padding-bottom: 20px;">
+  <el-table :data="tableData" border 
+    style="display: flex;
+    align-items: center;
+    min-height: 67px;
+    vertical-align: middle;
+    font-family: PingFangSC;
+    font-weight: 400;
+    font-size: 12px;
+    color: #50607a;"
+    >
+    <el-table-column prop="name" label="收货人" width="80" />
     <el-table-column prop="phone" label="电话/手机" width="120" />
-    <el-table-column prop="district" label="所在地区" width="200"/>
-    <el-table-column prop="detailAddress" label="详细地址" width="300"/>
-    <el-table-column prop="zipcode" label="邮编"  width="90"/>
-    <el-table-column label="操作" width="180">
+    <el-table-column prop="district" label="所在地区" width="180"/>
+    <el-table-column prop="detailAddress" label="详细地址" width="240"/>
+    <el-table-column prop="zipcode" label="邮编"  width="80"/>
+    <el-table-column label="操作" width="150">
         <template #default="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">
             修改
@@ -30,8 +41,9 @@
         </template>
       </el-table-column>
       <el-table-column  
-      label="移动设置"  
-      width="140">  
+      label="移动设置"
+      width="100"
+      >  
       <template v-slot:default="scope">  
         <span v-if="scope.row.status === 1">
           <el-tag type="warning">默认地址</el-tag>
@@ -43,6 +55,8 @@
     </el-table-column>  
 
   </el-table>
+</div>
+</div>
 </template>
 
 <script  setup>
