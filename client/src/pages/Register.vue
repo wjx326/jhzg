@@ -12,21 +12,21 @@
                     </div>
                     <el-form label-width="auto" style="max-width: 100%">
                         <el-form-item label="邮箱">
-                            <el-input  style="width:100%" placeholder="请输入邮箱" />
+                            <el-input  style="width:100%" placeholder="请输入邮箱" v-model="email"/>
                         </el-form-item>
                         <el-form-item label="验证码">
-                            <el-input  style="width: 100%" placeholder="请输入验证码" >
+                            <el-input  style="width: 100%" placeholder="请输入验证码" v-model="captcha">
                                 <template #append>
                                     <el-button >发送验证码</el-button>
                                 </template>
                             </el-input>
                         </el-form-item>
                         <el-form-item label="新密码">
-                            <el-input   placeholder="请输入密码" style="width: 100%" type="password" show-password>
+                            <el-input   placeholder="请输入密码" style="width: 100%" type="password" show-password v-model="password">
                             </el-input>
                         </el-form-item>
                         <el-form-item label="确认密码">
-                            <el-input  style="width: 100%" placeholder="请输入新密码" type="password" show-password/>
+                            <el-input  style="width: 100%" placeholder="请输入新密码" type="password" show-password v-model="confirmPass"/>
                         </el-form-item>
                         <el-form-item style="width: 100%">
                             <el-button type="primary" style="margin: auto; width:40%;" @click="handleBackClick">返回</el-button>
@@ -39,16 +39,38 @@
     </div>
 </template>
 <script setup>
+import {ref} from 'vue'
+import { ElMessage } from 'element-plus'; 
 import { useRouter } from 'vue-router';
+import {useUserStore} from '../stores/userStore'
+import {register} from '../api/user'
+
+const userStore = useUserStore();
 const router = useRouter();
+
+let email=ref('')
+let captcha=ref('')
+let password=ref('')
+let confirmPass=ref('')
+
 function handleBackClick() {
     router.push('/login');
 } 
-function handleConfirmClick() {
-    router.push('/');
-    ElMessage({
-    message: '注册成功',
-    type: 'success',
-  })
+async function handleConfirmClick() {
+    const response = await register(captcha,email,password)
+    
+    if(response.code==='0')
+    {
+        router.push('/');
+        ElMessage({
+        message: '注册成功',
+        type: 'success',
+        })
+    }else{
+        ElMessage({
+        message: '注册失败',
+        type: 'error',
+        })
+    }
 } 
 </script>
