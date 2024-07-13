@@ -19,7 +19,6 @@
             </el-sub-menu>
             <el-menu-item index="5" @click="handleComment"><el-icon><ChatDotRound /></el-icon>我的评价</el-menu-item>
             <el-menu-item index="6" @click="handleFootprint"><el-icon><View /></el-icon>我的足迹</el-menu-item>
-            <el-menu-item index="7" @click="handleService"><el-icon><User /></el-icon>售后服务</el-menu-item>
             <el-menu-item index="8" @click="handleAddress"><el-icon><Location /></el-icon>地址管理</el-menu-item>
             <el-sub-menu index="9">
                 <template #title>
@@ -28,6 +27,9 @@
                 <el-menu-item index="9-1" @click="handleChangeSelf">修改个人资料</el-menu-item>
                 <el-menu-item index="9-2" @click="handleChangePwd">修改密码</el-menu-item>
                 <el-menu-item index="9-3" @click="handleChangeEmile">修改邮箱</el-menu-item>
+                <el-menu-item index="9-4" @click="handleRecharge">充值</el-menu-item>
+                <el-menu-item index="9-5" @click="handleCreateStore">创建店铺</el-menu-item>
+                <el-menu-item index="9-6" @click="handleInStore">进入店铺</el-menu-item>
             </el-sub-menu>
         </el-menu>
     </div>
@@ -38,7 +40,7 @@
 </template>
 
 <script setup>
-import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,User,Location,Setting} from '@element-plus/icons-vue'
+import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,Location,Setting} from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
 const router = useRouter();
 function handleFront(){
@@ -74,6 +76,15 @@ function handleChangeSelf(){
 }
 function handleComment(){
     router.push('/comment')
+}
+function handleRecharge(){
+    router.push('/recharge')
+}
+function handleCreateStore(){
+    router.push('/createstore')
+}
+function handleInStore(){
+    
 }
 </script>
 

@@ -14,7 +14,7 @@
        <div class="home_sort">
            <div class="home_sort_head" style="display: flex; justify-content: space-between; align-items: center;">
                <div class="custom-font">商品分类</div>
-               <el-button type="primary">进入分类</el-button>
+               <el-button type="primary" @click="handleSort">进入分类</el-button>
            </div>
            <div class="home_sort_contain">
                <el-space wrap :size="25">
@@ -157,8 +157,14 @@
     </div>
 </template>
    
-   <script>
-   </script>
+<script setup>
+   import { useRouter } from 'vue-router';
+   const router = useRouter();
+function handleSort(){
+    router.push('/goodlist')
+}
+
+</script>
    
    <style scoped>
    .home_contain{

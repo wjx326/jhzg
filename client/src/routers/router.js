@@ -19,6 +19,9 @@ import ChangeSelfPassword from "../pages/Personal/PersonalPage/ChangePassword.vu
 import ChangeSelfEmile from "../pages/Personal/PersonalPage/ChangeEmile.vue"
 import ChangeSelfInfo from "../pages/Personal/PersonalPage/ChangeSelfInfo.vue"
 import MessageList from '../pages/MessageList.vue'
+import Recharge from '../pages/Personal/PersonalPage/Recharge.vue'
+import CreateStore from '../pages/Personal/PersonalPage/CreateStore.vue'
+import GoodList from '../pages/GoodsList.vue'
 // 创建路由对象,声明路由规则
 const router = createRouter({
 
@@ -44,6 +47,10 @@ const router = createRouter({
                 name: 'MessageList',  
                 component: MessageList 
               },
+              {
+                path : 'goodlist',
+                component:GoodList
+                },
               {
                 path:'personal',
                 name:'Personal',
@@ -106,7 +113,17 @@ const router = createRouter({
                         path:'/changeselfinfo',
                         name:'ChangeSelfInfo',
                         component:ChangeSelfInfo
-                    }
+                    },
+                    {
+                        path:'/recharge',
+                        name:'Recharge',
+                        component:Recharge
+                    },
+                    {
+                        path:'/createstore',
+                        name:'CreateStore',
+                        component:CreateStore
+                    },
                 ]
               }
             ]  
