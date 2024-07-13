@@ -77,8 +77,10 @@
       return messageStore.messages.slice(0, count.value);  
     });
 
-    onMounted(() => {  
-        currentMessage.value = displayedMessages.value[0];  
+    onMounted(() => { 
+        load(); 
+        currentMessage.value = displayedMessages.value[0]; 
+        
     });
 
     let selectMessage = (message) => {
