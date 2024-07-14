@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  'Authorization': `Bearer ${token}`
+};
+
 export  async function getShoppingCartList() {  
     try {   
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/list');
+      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/list',{headers});
       console.log('getShoppingCartList',response.data)   
       return response.data
     } catch (error) {  
@@ -19,7 +25,8 @@ export  async function shoppingCartDelete(id) {
         }  
         const response = await axios.delete('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/delete',
         { 
-            data: body 
+            data: body,
+            headers:headers 
         });
         console.log('shoppingCartDelete',response.data)   
         return response.data
@@ -32,7 +39,7 @@ export  async function shoppingCartDelete(id) {
 
 export  async function shoppingCartSettled() {  
     try {
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/settled');
+      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/settled',{ headers });
       console.log('shoppingCartSettled',response.data)   
       return response.data
     } catch (error) {  
@@ -48,7 +55,7 @@ export  async function shoppingCartUpdate(id,number) {
             id:id,
             number:number
         }  
-        const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/update',body);
+        const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/update',body,{ headers });
         console.log('shoppingCartUpdate',response.data)   
         return response.data
     } catch (error) {  

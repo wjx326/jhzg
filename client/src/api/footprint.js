@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  'Authorization': `Bearer ${token}`
+};
 
 //我的足迹
 export  async function footprintPage(page,pageSize) {  
@@ -10,7 +15,9 @@ export  async function footprintPage(page,pageSize) {
         pageSize:pageSize
     }
     const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/footprint/page',
-        { params: params }
+        { params: params,
+          headers:headers
+         }
     );
     console.log('footprintPage',response.data)   
     return response.data
@@ -27,7 +34,7 @@ export  async function footprintRecord(goods_id) {
         {
             goods_id:goods_id,
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/footprint/recording',body);
+      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/footprint/recording',body,{headers});
       console.log('footprintRecord',response.data)   
       return response.data
     } catch (error) {  

@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  'Authorization': `Bearer ${token}`
+};
+
 export  async function getAddressList() {  
     try {   
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/list');
+      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/list',{ headers });
       console.log('getAddressList',response.data)   
       return response.data
     } catch (error) {  
@@ -21,7 +27,9 @@ export  async function addressPage(page,pageSize) {
 
     }
     const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/page',
-        { params: params }
+        { params: params,
+          headers: headers
+         }
     );
     console.log('addressPage',response.data)   
     return response.data
@@ -44,7 +52,7 @@ export  async function addressSubmit(city_name,consignee,detail,district_name,ph
 
         }
       const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/submit',
-        body);
+        body,{ headers });
       console.log('addressSubmit',response.data)   
       return response.data
     } catch (error) {  
@@ -67,7 +75,7 @@ export  async function addressUpdate(id,city_name,consignee,detail,district_name
 
         }
       const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/update',
-        body);
+        body,{ headers });
       console.log('addressUpdate',response.data)   
       return response.data
     } catch (error) {  
@@ -84,7 +92,8 @@ export  async function addressDelete(address_id) {
     }  
       const response = await axios.delete('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/delete',
         { 
-            data: body 
+            data: body,
+            headers: headers
         });
       console.log('addressDelete',response.data)   
       return response.data
@@ -100,7 +109,7 @@ export  async function setDefaultAddress(address_id) {
         {
             address_id:address_id
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/default',body);
+      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/default',body,{headers});
       console.log('setDefaultAddress',response.data)   
       return response.data
     } catch (error) {  

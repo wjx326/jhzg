@@ -2,6 +2,8 @@
     import { ref } from 'vue'
     import { Search,Message,ShoppingCart } from '@element-plus/icons-vue'
     import { useRouter } from 'vue-router';
+    import {logout} from '../api/user'
+
     const searchText = ref('')
     const titleImgUrl = ref('src/assets/img/title.png'); 
     const router = useRouter();
@@ -16,6 +18,10 @@
     }
     function handletitle(){
         router.push('/')
+    }
+
+    function handlelogout(){
+        logout()
     }
 </script>
 
@@ -62,9 +68,15 @@
                 </el-link>
             </el-col>
 
-            <el-col :span="2" :offset="1"><div class="icon-2" />
+            <el-col :span="1"><div class="icon-2" />
                 <el-link href="#/cart" :underline="false">  
                     <el-icon class="icon" :size="32" @click="handleCartClick"><ShoppingCart /></el-icon>  
+                </el-link>
+            </el-col>
+
+            <el-col :span="2"><div class="icon-2" />
+                <el-link href="#/login" :underline="false" @click="handlelogout">  
+                    注销
                 </el-link>
             </el-col>
         </el-row>

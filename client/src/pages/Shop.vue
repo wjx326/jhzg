@@ -133,7 +133,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import{Plus,Service,Search,CaretBottom,CaretTop,Minus} from '@element-plus/icons-vue'
+import {Plus,Service,Search,CaretBottom,CaretTop,Minus} from '@element-plus/icons-vue'
 const value = ref(3)
 </script>
 <style>

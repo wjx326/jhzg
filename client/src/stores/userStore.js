@@ -6,8 +6,8 @@ export const useUserStore = defineStore('user', {
   state: () => ({  
     id: null, 
     salt: null,
-    name: 'aaaaa', 
-    nickname: 'abc', 
+    name: null, 
+    nickname: null, 
     password: null, 
     phone: null, 
     image: null,
@@ -22,7 +22,6 @@ export const useUserStore = defineStore('user', {
   actions: {  
     //设置用户信息
     setUser(userInfo) {  
-      this.id = userInfo.id;  
       this.name = userInfo.name;  
       this.nickname = userInfo.nickname;  
       this.password = userInfo.password;  
