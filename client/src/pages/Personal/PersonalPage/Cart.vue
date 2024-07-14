@@ -10,8 +10,9 @@
                 </div>
             </div>
             <div class="cart_item">
+
                 <div class="cart_item_store" >
-                    <el-checkbox   size="large" />
+                    <el-checkbox  v-model="Check" size="large" />
                     <span style="display: inline-block;width: 20px;height: 20px;">
                         <img style="width: 100%;height: 100%;" src="../../../assets/img/storelogo.png">
                     </span>
@@ -101,6 +102,8 @@
     </div>
 </template>
 <script setup>
+
+
 
 </script>
 <style>
