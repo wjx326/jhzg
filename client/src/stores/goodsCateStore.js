@@ -1,21 +1,32 @@
-import { defineStore } from 'pinia';  
+import { defineStore } from 'pinia'; 
+import { getAllCategories } from '../api/category'
   
 export const useGoodsCateStore = defineStore('goodscate', {  
   state: () => ({
     categories:[
       {
-        id: 1,
-        name: "string",
+        id: null,
+        name: null,
         image:null,
-        description:null
+        description:null,
+        status:null,
+        update_time:null
       }
     ],  
     
   }),  
   actions: {  
+    async getAllCategories() {  
+      try {  
+        const response = await getAllCategories();  
+        this.categories = response.data; // 更新state 
+        console.log('this.categories',this.categories) 
+      } catch (error) {  
+        console.error('Failed to fetch:', error);  
+      }  
+    }  
    
-   
-    // 你可以在这里添加更多的actions，比如登录、登出、更新用户信息等  
+      
   },  
   getters: {  
     

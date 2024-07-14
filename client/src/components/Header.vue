@@ -35,9 +35,8 @@
                 :zoom-rate="1.2"
                 :max-scale="7"
                 :min-scale="0.2"
-                :preview-src-list="srcList"
                 :initial-index="4"
-                fit="contain"
+                :fit="'contain'"
                 @click="handletitle()"
                 />
             </el-col>
@@ -58,7 +57,7 @@
 
             <el-col :span="2" :offset="1"><div class="avatar" />
                 <el-avatar  @click="handleAvatarClick"
-                :size="55" :fit="contain" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                :size="55" :fit="'contain'" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
                 />
             </el-col>
 
@@ -70,7 +69,7 @@
 
             <el-col :span="1"><div class="icon-2" />
                 <el-link href="#/cart" :underline="false">  
-                    <el-icon class="icon" :size="32" @click="handleCartClick"><ShoppingCart /></el-icon>  
+                    <el-icon class="icon" :size="32" ><ShoppingCart /></el-icon>  
                 </el-link>
             </el-col>
 
