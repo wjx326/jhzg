@@ -25,25 +25,80 @@
             </el-row>
         </div>
         <el-row style="margin-top: 30px;color: #606266;">
-            <el-col :span="3">
-                <div style="width: 100px;height: 50px;border: 2px solid #ccc;border-radius: 5px;text-align: center;line-height: 50px;">10￥</div>
+            <el-col :span="3" v-for="(amount, index) in amounts" :key="index">
+                <div
+                    class="pay_card"
+                    :class="{ selected: selectedAmount === amount }"
+                    @click="selectAmount(amount)"
+                >
+                    {{ amount }}￥
+                </div>
             </el-col>
             <el-col :span="3">
-                <div style="width: 100px;height: 50px;border: 2px solid #ccc;border-radius: 5px;text-align: center;line-height: 50px;">20￥</div>
+                <div
+                    class="pay_card"
+                    :class="{ selected: selectedAmount === 4 }"
+                    @click="selectCustomAmount"
+                >
+                    自定义金额
+                </div>
             </el-col>
             <el-col :span="3">
-                <div style="width: 100px;height: 50px;border: 2px solid #ccc;border-radius: 5px;text-align: center;line-height: 50px;">30￥</div>
-            </el-col>
-            <el-col :span="3">
-                <div style="width: 100px;height: 50px;border: 2px solid #ccc;border-radius: 5px;text-align: center;line-height: 50px;">自定义金额</div>
+                <el-input
+                    v-if="showCustomAmountInput"
+                    type="number"
+                    v-model.number="customAmount"
+                    @blur="confirmCustomAmount"
+                />
             </el-col>
         </el-row>
         <el-row style="margin-top: 50px;margin-bottom: 50px ;color: #606266;">
             <el-col :span="2">应付余额：</el-col>
-            <el-col :span="2">{xxxx}元</el-col>
+            <el-col :span="2"  style="font-size: x-large;color: red;">{{ payMoney }}元</el-col>
         </el-row>
         <el-button type="primary" style="color: white;" color="#26b0d5" size="large">确认支付</el-button>
     </div>
 </template>
 <script setup>
+import { ref } from 'vue'
+
+const amounts = [10, 20, 30] // 定义金额选项
+const selectedAmount = ref(null) // 用于存储选中的金额
+const isCustomAmount = ref(false) // 用于判断是否选中了自定义金额
+const showCustomAmountInput = ref(false) // 控制是否显示自定义金额输入框
+const customAmount = ref(0) // 存储自定义金额
+const payMoney = ref(0) // 应付余额
+
+// 选择金额
+const selectAmount = (amount) => {
+  selectedAmount.value = amount
+  isCustomAmount.value = false
+  showCustomAmountInput.value = false
+  payMoney.value = amount
+}
+
+// 选择自定义金额
+const selectCustomAmount = () => {
+    showCustomAmountInput.value=true
+    selectedAmount.value = 4
+}
+const confirmCustomAmount=()=>{
+    if (customAmount.value >=0) {
+    isCustomAmount.value = true
+    payMoney.value = customAmount.value
+  }
+}
 </script>
+<style>
+.pay_card{
+    width: 100px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 50px;
+}
+.pay_card.selected{
+    border:2px solid #26b0d5;
+}
+</style>
