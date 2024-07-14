@@ -2,6 +2,13 @@
   <el-row>
     <el-col :span="24">
       <ul class="select-list">分类：
+        <li
+            class="select-list-item"
+            :class="{ selected: selectedCate === cate }"
+            @click="toggleCate(cate)"
+            >
+            <el-link :underline="false" href="">全部商品</el-link>
+            </li>
             <li
             v-for="(cate, index) in cates" 
             :key="index"
@@ -9,7 +16,7 @@
             :class="{ selected: selectedCate === cate }"
             @click="toggleCate(cate)"
             >
-            <el-link :underline="false" href="">{{ cate }}</el-link>
+            <el-link :underline="false" href="">{{ cate.name }}</el-link>
             </li>
         </ul> 
     </el-col>
@@ -62,7 +69,7 @@
           </el-col>
           <el-col :span="8">
             <div style=" font-weight: bold;">
-             <el-button color="#c40000" :dark="isDark">立即购买</el-button>
+             <el-button color="#c40000">立即购买</el-button>
            </div>
           </el-col>
         </el-row>
@@ -145,10 +152,11 @@
 </style>
 
 <script setup>
-import { h,ref } from 'vue';
-import { BottomRight,ShoppingCart,ChatDotSquare } from '@element-plus/icons-vue'
+import { h,ref ,onMounted} from 'vue';
 import { useGoodsCommentStore } from '../stores/goodsCommentStore'; 
-import { useGoodsStore } from '../stores/goodsStore'; 
+import { useGoodsStore } from '../stores/goodsStore';
+import {useGoodsCateStore} from '../stores/goodsCateStore'
+
 
 import { ElDivider } from 'element-plus'
 
@@ -157,9 +165,8 @@ const size = ref(15)
 const spacer = h(ElDivider, { direction: 'vertical' })
 
 const goodsCommentStore = useGoodsCommentStore(); 
-const goodsStore = useGoodsStore(); 
-
-let goodsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+const goodsStore = useGoodsStore();
+const GoodsCateStore = useGoodsCateStore(); 
 
 const filters = ref([
   '按销量排序',
@@ -168,16 +175,21 @@ const filters = ref([
   
 ]);
 
-const cates = ref([
-  '电子产品',
-  '服装',
-  '家电',
-  '图书',
-]);
+onMounted(()=>{
+  GoodsCateStore.getAllCategories()
+})
+
+const cates = ref(GoodsCateStore.categories);
+console.log('cates',cates)
+
+
+let goodsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+
+
 
 
 const selectedFilter = ref('按销量排序'); 
-const selectedCate = ref('电子产品'); 
+const selectedCate = ref('全部商品'); 
 
 let score=goodsStore.score
 
