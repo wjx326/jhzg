@@ -55,22 +55,32 @@ const router = useRouter();
 async function handleLoginClick() {
     const response = await login(name,password)
     
-    if(response.code==='0')
-    {
-        const userInfo=await getUserById(response.data.id)
-        console.log(userInfo.data)
-        userStore.setUser(userInfo.data)
-        router.push('/');
-        ElMessage({
+    // if(response.code==='0')
+    // {
+    //     const userInfo=await getUserById(response.data.id)
+    //     console.log(userInfo.data)
+    //     userStore.setUser(userInfo.data)
+    //     router.push('/');
+    //     ElMessage({
+    //     message: '登录成功',
+    //     type: 'success',
+    //     })
+    // }else{
+    //     ElMessage({
+    //     message: '登录失败',
+    //     type: 'error',
+    //     })
+    // }
+    localStorage.setItem("userId",JSON.stringify(response.data.id));
+
+    const userInfo=await getUserById(response.data.id)
+    userStore.setUser(userInfo.data)
+    router.push('/');
+    ElMessage({
         message: '登录成功',
         type: 'success',
-        })
-    }else{
-        ElMessage({
-        message: '登录失败',
-        type: 'error',
-        })
-    }
+    })
+    
 }
     
 

@@ -1,6 +1,12 @@
 import axios from 'axios';
 
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  'Authorization': `Bearer ${token}`
+};
+
 //商品收藏
 export  async function collectPage(page,pageSize) {  
   try { 
@@ -10,7 +16,10 @@ export  async function collectPage(page,pageSize) {
         pageSize:pageSize
     }
     const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect/page',
-        { params: params }
+        { 
+          params: params,
+          headers:headers
+        }
     );
     console.log('collectPage',response.data)   
     return response.data
@@ -29,7 +38,8 @@ export  async function collectDelete(id) {
     }  
       const response = await axios.delete('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect/delete',
         { 
-            data: body 
+            data: body,
+            headers:headers 
         });
       console.log('collectDelete',response.data)   
       return response.data
@@ -42,7 +52,7 @@ export  async function collectDelete(id) {
 export  async function getcollectById(collect_id) {  
     try { 
             //   const response = await axios.get(`api/user/collect/{collect_id}`);
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect/1');
+      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect/1',{ headers });
       console.log('getcollectById',response.data)   
       return response.data
     } catch (error) {  
@@ -57,7 +67,7 @@ export  async function setCollect(goods_id) {
         {
             goods_id:goods_id
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect',body);
+      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect',body,{ headers });
       console.log('setCollect',response.data)   
       return response.data
     } catch (error) {  

@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  'Authorization': `Bearer ${token}`
+};
+
 export  async function getMessagesByShopid(id) {  
     try {  
         const params =
@@ -7,7 +13,9 @@ export  async function getMessagesByShopid(id) {
             shop_id:id
         }
       const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/message/queryByShop',
-        { params: params });
+        { params: params,
+          headers:headers
+         });
       console.log('getMessagesByShopid',response.data)   
       return response.data
     } catch (error) {  
@@ -18,7 +26,7 @@ export  async function getMessagesByShopid(id) {
 
 export  async function getLatestMessage() {  
   try { 
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/message/new');
+    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/message/new',{headers});
     console.log('getLatestMessage',response.data)   
     return response.data
   } catch (error) {  

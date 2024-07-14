@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  'Authorization': `Bearer ${token}`
+};
+
 
 //商品收藏
 export  async function getShopByGoodsId(goods_id) {  
@@ -9,7 +15,9 @@ export  async function getShopByGoodsId(goods_id) {
         goods_id:goods_id
     }
     const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/queryByGoodsId',
-        { params: params }
+        { params: params,
+          headers:headers
+         }
     );
     console.log('getShopByGoodsId',response.data)   
     return response.data
@@ -23,7 +31,7 @@ export  async function getShopByGoodsId(goods_id) {
 export  async function getShopByShopId(shop_id) {  
     try { 
             //   const response = await axios.get(`api/user/shop/{shop_id}`);
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/1');
+      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/1',{headers});
       console.log('getShopByShopId',response.data)   
       return response.data
     } catch (error) {  
@@ -39,7 +47,9 @@ export  async function getShopByUserId(user_id) {
         user_id:user_id
       }
       const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/queryByUser',
-          { params: params }
+          { params: params,
+            headers:headers
+           }
       );
       console.log('getShopByUserId',response.data)   
       return response.data
@@ -60,7 +70,7 @@ export  async function createShop(description,image,name,phone) {
             name:name,
             phone:phone,
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/create',body);
+      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/create',body,{headers});
       console.log('createShop',response.data)   
       return response.data
     } catch (error) {  

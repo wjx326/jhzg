@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  'Authorization': `Bearer ${token}`
+};
 
 //我的评论
 export  async function commentPage(page,pageSize) {  
@@ -10,7 +15,10 @@ export  async function commentPage(page,pageSize) {
         pageSize:pageSize
     }
     const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/comment/page',
-        { params: params }
+        { 
+          params: params,
+          headers:headers
+        }
     );
     console.log('commentPage',response.data)   
     return response.data
@@ -30,7 +38,10 @@ export  async function goodsCommentPage(goods_id,page,pageSize) {
         pageSize:pageSize
       }
       const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/comment/goods/page',
-          { params: params }
+          { 
+            params: params,
+            headers:headers 
+          }
       );
       console.log('goodsCommentPage',response.data)   
       return response.data
@@ -51,7 +62,7 @@ export  async function commentSubmit(content,goods_id,goods_score,is_hide,shop_s
             is_hide:is_hide,
             shop_score:shop_score,
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/comment/submit',body);
+      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/comment/submit',body,{headers:headers});
       console.log('commentSubmit',response.data)   
       return response.data
     } catch (error) {  

@@ -4,7 +4,7 @@ export const useGoodsStore = defineStore('goods', {
   state: () => ({
     goods:[{
       id: null, 
-      img: null,
+      image: null,
       name: '123', 
       price:'111',
       checked:null,

@@ -1,14 +1,28 @@
 <script setup>
-import { h, ref } from 'vue'
+import { h, ref,onMounted } from 'vue'
 import { ElDivider } from 'element-plus'
 import { useUserStore } from '../../../stores/userStore';
 import { ArrowRight } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
+import {getUserById} from '../../../api/user'
+
+const router = useRouter();
 
 const userStore = useUserStore(); 
 
 
 const size = ref(50)
 const spacer = h(ElDivider, { direction: 'vertical' })
+
+function handleAddress(){
+    router.push('/addresslist')
+}
+
+onMounted(async ()=>{
+    const userId=localStorage.getItem('userId')
+    const response=await getUserById(userId)
+    userStore.setUser(response.data)
+});
 </script>
 
 <template>
@@ -25,9 +39,9 @@ const spacer = h(ElDivider, { direction: 'vertical' })
                 <span style="font-size: small; color: gray;">{{ userStore.name }}</span>
                 </div>
             </el-col>
-            <el-col :span="6" :offset="6"><div class="bg-grey box-card" @click="">
-                <el-row>收货地址
-                    <el-link href="#" :underline="false">  
+            <el-col :span="6" :offset="6"><div class="bg-grey box-card" >
+                <el-row @click="handleAddress">收货地址
+                    <el-link  :underline="false">  
                         <el-icon><ArrowRight /></el-icon>
                 </el-link>
                 </el-row><br>
