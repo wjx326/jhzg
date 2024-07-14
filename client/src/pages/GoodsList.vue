@@ -1,87 +1,91 @@
 <template>
-  <el-row>
-    <el-col :span="24">
-      <ul class="select-list">分类：
-        <li
-            class="select-list-item"
-            :class="{ selected: selectedCate === cate }"
-            @click="toggleCate(cate)"
-            >
-            <el-link :underline="false" href="">全部商品</el-link>
-            </li>
+  <div style="width: 90%;margin: auto;padding-top: 10px;">
+    <div style="background-color: white;border-radius: 10px;">
+      <el-row>
+        <el-col :span="24">
+          <ul class="select-list">分类：
             <li
-            v-for="(cate, index) in cates" 
-            :key="index"
-            class="select-list-item"
-            :class="{ selected: selectedCate === cate }"
-            @click="toggleCate(cate)"
-            >
-            <el-link :underline="false" href="">{{ cate.name }}</el-link>
-            </li>
-        </ul> 
-    </el-col>
-    <el-col :span="24">
-        <ul class="select-list">筛选条件：
-            <li
-            v-for="(filter, index) in filters" 
-            :key="index" 
-            class="select-list-item"
-            :class="{ selected: selectedFilter === filter }"
-            @click="toggleFilter(filter)"
-            >
-            <el-link :underline="false" href="">{{ filter }}</el-link>
-            </li>
-        </ul> 
-    </el-col>
-    
-  </el-row>
-  <el-row>
-    <el-space wrap :size="40">
-    <el-card v-for="i in 4" :key="i"  style="width: 250px" shadow="hover">
-      <template #header>
-        <div class="card-header">
-          <el-image style="width: 210px; height: 210px" :src="goodsImgurl" :fit="'fill'" />
-          <div style="text-align: center; ">
-                 {{ goodsStore.name }}
-                 <br>
-                 <el-rate
-                  v-model="score"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}分"
-                />
-            </div>
-        </div>
-      </template>
-      <div class="text item">
-        <el-row>
-          <el-col :span="8"> 
-            <div style="color: #c40000; font-weight: bold;font-size: larger;">
-                ￥{{ goodsStore.price }}
-            </div>
-            <div style="color:#666;font-size:x-small;margin-top: 10px;">
-              {{ goodsStore.count }}人购买
-            </div>
-          </el-col>
-          <el-col :span="5">
-           
-          </el-col>
-          <el-col :span="8">
-            <div style=" font-weight: bold;">
-             <el-button color="#c40000">立即购买</el-button>
-           </div>
-          </el-col>
-        </el-row>
+                class="select-list-item"
+                :class="{ selected: selectedCate === cate }"
+                @click="toggleCate(cate)"
+                >
+                <el-link :underline="false" href="">全部商品</el-link>
+                </li>
+                <li
+                v-for="(cate, index) in cates" 
+                :key="index"
+                class="select-list-item"
+                :class="{ selected: selectedCate === cate }"
+                @click="toggleCate(cate)"
+                >
+                <el-link :underline="false" href="">{{ cate.name }}</el-link>
+                </li>
+            </ul> 
+        </el-col>
+        <el-col :span="24">
+            <ul class="select-list">筛选条件：
+                <li
+                v-for="(filter, index) in filters" 
+                :key="index" 
+                class="select-list-item"
+                :class="{ selected: selectedFilter === filter }"
+                @click="toggleFilter(filter)"
+                >
+                <el-link :underline="false" href="">{{ filter }}</el-link>
+                </li>
+            </ul> 
+        </el-col>
+      </el-row>
+    </div>
 
-      </div>
-    </el-card>
-  </el-space>
-   
+    <div style="background-color: white;border-radius: 10px;margin-top: 10px;padding:20px;">
+      <el-row>
+        <el-space wrap :size="40">
+        <el-card v-for="i in 4" :key="i"  style="width: 250px" shadow="hover">
+          <template #header>
+            <div class="card-header">
+              <el-image style="width: 210px; height: 210px" :src="goodsImgurl" :fit="'fill'" />
+              <div style="text-align: center; ">
+                    {{ goodsStore.name }}
+                    <br>
+                    <el-rate
+                      v-model="score"
+                      disabled
+                      show-score
+                      text-color="#ff9900"
+                      score-template="{value}分"
+                    />
+                </div>
+            </div>
+          </template>
+          <div class="text item">
+            <el-row>
+              <el-col :span="8"> 
+                <div style="color: #c40000; font-weight: bold;font-size: larger;">
+                    ￥{{ goodsStore.price }}
+                </div>
+                <div style="color:#666;font-size:x-small;margin-top: 10px;">
+                  {{ goodsStore.count }}人购买
+                </div>
+              </el-col>
+              <el-col :span="5">
+              
+              </el-col>
+              <el-col :span="8">
+                <div style=" font-weight: bold;">
+                <el-button color="#c40000">立即购买</el-button>
+              </div>
+              </el-col>
+            </el-row>
 
-  </el-row>
-  
-  
+          </div>
+        </el-card>
+      </el-space>
+      
+
+      </el-row>
+    </div>
+  </div>
 </template>
 
 <style>
@@ -152,19 +156,11 @@
 </style>
 
 <script setup>
-import { h,ref ,onMounted} from 'vue';
-import { useGoodsCommentStore } from '../stores/goodsCommentStore'; 
+import { ref ,onMounted} from 'vue';
+
 import { useGoodsStore } from '../stores/goodsStore';
 import {useGoodsCateStore} from '../stores/goodsCateStore'
 
-
-import { ElDivider } from 'element-plus'
-
-
-const size = ref(15)
-const spacer = h(ElDivider, { direction: 'vertical' })
-
-const goodsCommentStore = useGoodsCommentStore(); 
 const goodsStore = useGoodsStore();
 const GoodsCateStore = useGoodsCateStore(); 
 
