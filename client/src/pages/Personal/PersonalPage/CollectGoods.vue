@@ -117,13 +117,15 @@
 {  
     color: white;  
     background-color: #e4393c;
-    padding: 2px; 
+    padding: 5px; 
+    border-radius: 5px;
 }
 .select-list-item.selected .el-link
 {  
     color: white;  
     background-color: #e4393c;
-    padding: 2px;
+    padding: 8px;
+    border-radius: 5px;
 }
 .cate-select-list
 {

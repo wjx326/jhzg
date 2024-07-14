@@ -44,7 +44,7 @@
             <hr>
             <br>
                 <div class="card-footer">
-                    <el-button text bg size="small"><el-icon :size="22"><Shop /></el-icon>进入店铺</el-button>  
+                    <el-button text bg size="small" @click="goshop"><el-icon :size="22"><Shop /></el-icon>进入店铺</el-button>  
                     <el-button text bg size="small"><el-icon :size="22"><Service /></el-icon>联系客服</el-button> 
                 </div>
 
@@ -121,11 +121,13 @@
 }
 .select-list-item
 {
+  
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px;
   line-height: 25px;
+
 }
 .select-list
 {
@@ -133,19 +135,20 @@
   align-items: center; /* 如果需要，可以在这里设置子项的对齐方式 */  
   justify-content: space-between; 
   width: 40%; /* 或者设置一个具体的宽度值 */ 
-
 }
 .cata-select-list-item.selected .el-link 
 {  
     color: white;  
     background-color: #e4393c;
-    padding: 2px; 
+    padding: 2px;
 }
 .select-list-item.selected .el-link
 {  
     color: white;  
     background-color: #e4393c;
-    padding: 2px;
+    padding: 5px;
+  
+    border-radius: 5px;
 }
 .cata-select-list
 {
@@ -212,6 +215,7 @@ import { useShopsStore } from '../../../stores/shopsStore';
 
 
 import { ElDivider } from 'element-plus'
+import router from '../../../routers/router';
 
 
 const activeName = ref('first')
@@ -243,4 +247,7 @@ const toggleFilter = (filter) => {
   if (selectedFilter.value === filter) return;
   selectedFilter.value = filter;
 };
+function goshop(){
+  router.push('/shop')
+}
 </script>

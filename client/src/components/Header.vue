@@ -7,7 +7,7 @@
     const router = useRouter();
     function handleAvatarClick() { 
         //这里条件判断，若当前无用户登录，则跳转登录，若有用户跳转个人界面
-        if(false){ 
+        if(true){ 
             router.push('/personal');
         }
         else{
