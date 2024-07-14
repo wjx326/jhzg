@@ -12,10 +12,10 @@
                     </div>
                     <el-form label-width="auto" style="max-width: 100%">
                         <el-form-item label="账号">
-                            <el-input  />
+                            <el-input  v-model="name"/>
                         </el-form-item>
                         <el-form-item label="密码">
-                            <el-input  type="password"/>
+                            <el-input  type="password" v-model="password"/>
                         </el-form-item>
                         <el-form-item>
                             <el-button type="primary" style="margin: auto; width:80%;margin-top: 30px;" @click="handleLoginClick">登录</el-button>
@@ -35,16 +35,47 @@
     </div>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
+import {ref} from 'vue'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'; 
+import {login,getUserById} from '../api/user'
+
+
+import {useUserStore} from '../stores/userStore'
+
+const userStore = useUserStore(); 
+
+const name=ref('')
+const password=ref('')
+
+
+
 const router = useRouter();
-function handleLoginClick() {
-    router.push('/');
-    ElMessage({
-    message: '登录成功',
-    type: 'success',
-  })
-} 
-function handleRegisterClick() {  
+
+async function handleLoginClick() {
+    const response = await login(name,password)
+    
+    if(response.code==='0')
+    {
+        const userInfo=await getUserById(response.data.id)
+        console.log(userInfo.data)
+        userStore.setUser(userInfo.data)
+        router.push('/');
+        ElMessage({
+        message: '登录成功',
+        type: 'success',
+        })
+    }else{
+        ElMessage({
+        message: '登录失败',
+        type: 'error',
+        })
+    }
+}
+    
+
+function handleRegisterClick() { 
+ 
     router.push('/register');
 }  
 function handleWordClick() {  
