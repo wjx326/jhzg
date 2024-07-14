@@ -45,3 +45,5 @@
         <el-button type="primary" style="color: white;" color="#26b0d5" size="large">确认支付</el-button>
     </div>
 </template>
+<script setup>
+</script>
