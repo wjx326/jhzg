@@ -2,13 +2,6 @@
   <el-row>
     <el-col :span="24">
       <ul class="select-list">分类：
-        <li
-            class="select-list-item"
-            :class="{ selected: selectedCate === cate }"
-            @click="toggleCate(cate)"
-            >
-            <el-link :underline="false" href="">全部商品</el-link>
-            </li>
             <li
             v-for="(cate, index) in cates" 
             :key="index"
@@ -156,6 +149,8 @@ import { h,ref ,onMounted} from 'vue';
 import { useGoodsCommentStore } from '../stores/goodsCommentStore'; 
 import { useGoodsStore } from '../stores/goodsStore';
 import {useGoodsCateStore} from '../stores/goodsCateStore'
+import { getAllCategories } from '../api/category'
+
 
 
 import { ElDivider } from 'element-plus'
@@ -175,12 +170,23 @@ const filters = ref([
   
 ]);
 
+const cates = ref([{name:'全部商品'}]);
+
+const  getCategories= async() =>{  
+      try {  
+        const response = await getAllCategories();  
+        cates.value = cates.value.concat(response.data); 
+        console.log('cates.value',cates.value) 
+      } catch (error) {  
+        console.error('Failed to fetch:', error);  
+      }  
+}  
+
 onMounted(()=>{
-  GoodsCateStore.getAllCategories()
+  getCategories()
 })
 
-const cates = ref(GoodsCateStore.categories);
-console.log('cates',cates)
+
 
 
 let goodsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
@@ -189,7 +195,7 @@ let goodsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171j
 
 
 const selectedFilter = ref('按销量排序'); 
-const selectedCate = ref('全部商品'); 
+const selectedCate = ref(cates.value[0]); 
 
 let score=goodsStore.score
 
