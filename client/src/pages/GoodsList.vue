@@ -1,5 +1,5 @@
 <template>
-  <template>
+ 
   <div style="width: 90%;margin: auto;padding-top: 10px;">
     <div style="background-color: white;border-radius: 10px;">
       <el-row>
