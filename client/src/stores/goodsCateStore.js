@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'; 
-import { getAllCategories } from '../api/category'
   
 export const useGoodsCateStore = defineStore('goodscate', {  
   state: () => ({
@@ -16,15 +15,7 @@ export const useGoodsCateStore = defineStore('goodscate', {
     
   }),  
   actions: {  
-    async getAllCategories() {  
-      try {  
-        const response = await getAllCategories();  
-        this.categories = response.data; // 更新state 
-        console.log('this.categories',this.categories) 
-      } catch (error) {  
-        console.error('Failed to fetch:', error);  
-      }  
-    }  
+    
    
       
   },  
