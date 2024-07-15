@@ -85,13 +85,15 @@ export  async function orderReceived(order_id) {
     }  
 }
 
-export  async function orderPage(page,pageSize,status) {  
+export  async function orderPage(page,pageSize,status,number,goods_name) {  
     try { 
         const params =
         {
             page:page,
             pageSize:pageSize,
-            status:status
+            status:status,
+            number:number,
+            goods_name:goods_name
         }
       const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/order/page',
         { params: params,

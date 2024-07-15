@@ -1,4 +1,5 @@
 <template>
+ 
   <div style="width: 90%;margin: auto;padding-top: 10px;">
     <div style="background-color: white;border-radius: 10px;">
       <el-row>
@@ -156,11 +157,21 @@
 </style>
 
 <script setup>
-import { ref ,onMounted} from 'vue';
-
+import { h,ref ,onMounted} from 'vue';
+import { useGoodsCommentStore } from '../stores/goodsCommentStore'; 
 import { useGoodsStore } from '../stores/goodsStore';
 import {useGoodsCateStore} from '../stores/goodsCateStore'
+import { getAllCategories } from '../api/category'
 
+
+
+import { ElDivider } from 'element-plus'
+
+
+const size = ref(15)
+const spacer = h(ElDivider, { direction: 'vertical' })
+
+const goodsCommentStore = useGoodsCommentStore(); 
 const goodsStore = useGoodsStore();
 const GoodsCateStore = useGoodsCateStore(); 
 
@@ -171,12 +182,23 @@ const filters = ref([
   
 ]);
 
+const cates = ref([{name:'全部商品'}]);
+
+const  getCategories= async() =>{  
+      try {  
+        const response = await getAllCategories();  
+        cates.value = cates.value.concat(response.data); 
+        console.log('cates.value',cates.value) 
+      } catch (error) {  
+        console.error('Failed to fetch:', error);  
+      }  
+}  
+
 onMounted(()=>{
-  GoodsCateStore.getAllCategories()
+  getCategories()
 })
 
-const cates = ref(GoodsCateStore.categories);
-console.log('cates',cates)
+
 
 
 let goodsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
@@ -185,7 +207,7 @@ let goodsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171j
 
 
 const selectedFilter = ref('按销量排序'); 
-const selectedCate = ref('全部商品'); 
+const selectedCate = ref(cates.value[0]); 
 
 let score=goodsStore.score
 

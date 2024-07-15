@@ -40,9 +40,11 @@
 </template>
 
 <script setup>
+import {ref} from 'vue'
 import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,Location,Setting} from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
 const router = useRouter();
+
 function handleFront(){
     router.push('/personal')
     console.log(1)

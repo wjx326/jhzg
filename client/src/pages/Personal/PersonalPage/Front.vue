@@ -5,24 +5,42 @@ import { useUserStore } from '../../../stores/userStore';
 import { ArrowRight } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
 import {getUserById} from '../../../api/user'
+import {getOrderTypeCount} from '../../../api/order'
 
 const router = useRouter();
 
 const userStore = useUserStore(); 
 
-
 const size = ref(50)
 const spacer = h(ElDivider, { direction: 'vertical' })
+
+const count=ref([])
 
 function handleAddress(){
     router.push('/addresslist')
 }
 
-onMounted(async ()=>{
+async function getUser()
+{
     const userId=localStorage.getItem('userId')
     const response=await getUserById(userId)
     userStore.setUser(response.data)
+}
+
+async function geTypeCount(){
+    const response=await getOrderTypeCount()
+    response.data.forEach(item => {  
+    // 将每个对象的count属性添加到countArray中  
+    count.value.push(item.count);  
+    });  
+}
+   
+
+onMounted(()=>{
+    getUser()
+    geTypeCount()
 });
+
 </script>
 
 <template>
@@ -55,19 +73,19 @@ onMounted(async ()=>{
         <el-row>
                 <el-space :size="size" :spacer="spacer" style="text-align: center; margin-left: 30px;">
                 <div>
-                    {{0}}<br>待付款
+                    {{count[0]}}<br>待付款
                 </div>
                 <div>
-                    {{0}}<br>待发货
+                    {{count[1]}}<br>待发货
                 </div>
                 <div>
-                    {{0}}<br>待收货
+                    {{count[2]}}<br>待收货
                 </div>
                 <div>
-                    {{0}}<br>待评价
+                    {{count[3]}}<br>待评价
                 </div>
                 <div>
-                    {{0}}<br>退款/售后
+                    {{count[4]}}<br>退款/售后
                 </div>
             </el-space>
         </el-row>
