@@ -91,7 +91,7 @@ export  async function getGoodsById(good_id) {
 }
 
 export async function allGoodsPage(page,pageSize,
-    priceSort,salesSort,scoreSort) {  
+    priceSort,salesSort,scoreSort,name) {  
     try { 
         const params =
         {
@@ -100,6 +100,7 @@ export async function allGoodsPage(page,pageSize,
             priceSort:priceSort,
             salesSort:salesSort,
             scoreSort:scoreSort,
+            name:name
         }
       const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/page?apifoxApiId=192382279',
         { params: params,
