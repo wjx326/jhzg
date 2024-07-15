@@ -177,7 +177,10 @@ const deleteCart = ()=>{
         shoppingCartDelete(g.good_id);
     })
     allChecked.value=false;
-    getCartList();}
+    getCartList();
+    countGoods.value = {};
+    countNum.value=0;
+}
 }
 const addCollectGoods=()=>{
     if(countNum.value!=0)
@@ -193,6 +196,8 @@ const cartSettle=()=>{
     })
     allChecked.value=false;
     getCartList();}
+    countGoods.value = {};
+    countNum.value=0;
 }
 
 // 调用 getCartList 函数来获取购物车列表
