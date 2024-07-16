@@ -100,7 +100,7 @@ const confirmDialog = async() => {
   emit('update:modelValue', false)
   if(title.value=='添加地址')
   {
-    const response=await addressSubmit(form.value.id,form.value.address[1],form.value.name,form.value.detailAddress,
+    const response=await addressSubmit(form.value.address[1],form.value.name,form.value.detailAddress,
     form.value.address[2],form.value.phoneNum,form.value.address[0],form.value.sex)
     if(response.code==='0')
       {
@@ -116,7 +116,7 @@ const confirmDialog = async() => {
           })
       }
   }else{
-    const response=await addressUpdate(form.value.address[1],form.value.name,form.value.detailAddress,
+    const response=await addressUpdate(form.value.id,form.value.address[1],form.value.name,form.value.detailAddress,
     form.value.address[2],form.value.phoneNum,form.value.address[0],form.value.sex)
     if(response.code==='0')
       {
