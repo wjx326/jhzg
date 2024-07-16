@@ -152,7 +152,7 @@
         router.push({ name: 'GoodsDetail', query: { id } });  
     }
     function handleSort(){
-        router.push('/goodlist')
+        router.push('/goodslist')
     }
 
     async function showCategoryRecommend()
