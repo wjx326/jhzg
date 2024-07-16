@@ -17,20 +17,22 @@
         </div>
         <div style="padding:10px;">
             <el-input
-                v-model="input1"
+                v-model="input"
                 style="max-width: 400px;  margin-bottom: 20px;"
                 placeholder="输入商品标题或订单号进行搜索"
                 class="input-with-select"
                 >
                 <template #append>
-                    <el-button >订单搜索</el-button>
+                    <el-button @click="handleSearch" >订单搜索</el-button>
                 </template>
             </el-input>
 
             <el-pagination 
             layout="prev, pager, next,total" 
             :total="total"
-            :page-size="5"
+            :page-size="currentPageSize"
+            :current-page="currentPage"
+            @current-change="handlePageChange"
             size="large"/>
 
         </div>
@@ -121,26 +123,34 @@
 </template>
 
 <script setup>
-import {ref,onMounted,reactive} from 'vue'
+import {ref,onMounted} from 'vue'
 import {Delete} from '@element-plus/icons-vue'
 import {orderDetail,deleteOrder,orderPay,orderPage,orderReceived} from '../../../api/order'
 import moment from 'moment';  
 import { ElMessage } from 'element-plus'; 
+import router from '../../../routers/router';
 
+const input=ref(null);
 
 const activeIndex = ref('1')
 
 const order=ref([])
-const total=ref(null)
+const total=ref(0)
 const deleteVisible=ref(false)
 const payVisible=ref(false)
 
+const currentPage=ref(1)
+const currentPageSize=ref(5)
+const currentNumber=ref(null)
+const currentStatus=ref(null)
+const currentName=ref(null)
 
 let orderpage=async ()=>{
-    const response=await orderPage(1,5,null,null,null)
+    console.log("currentStatus.value",currentStatus.value);
+    const response=await orderPage(currentPage.value,currentPageSize.value,currentStatus.value,currentNumber.value,currentName.value)
     let records=response.data.records
     total.value=response.data.total
-
+    console.log(total.value);
     let updatedOrders = [];  
   
     // 遍历原始订单记录  
@@ -166,7 +176,16 @@ let orderpage=async ()=>{
     console.log('order.value', order.value); 
 
 }
-
+const handleSelect=(index)=>{
+    console.log(index);
+    currentStatus.value=index;
+    orderpage();
+}
+const handlePageChange=(newPage)=>{
+    console.log(newPage);
+    currentPage.value=newPage;
+    orderpage();
+}
 let formattedDate=(dateString)=> {  
       return moment(dateString).format('YYYY-MM-DD');  
 }
@@ -192,9 +211,14 @@ let getStatus=(status)=> {
 
 
 let handleDelete=()=> {  
-    deleteVisible.value = true;  
+    deleteVisible.value = true; 
 }  
-   
+
+const handleSearch=()=>{
+    currentName.value=input;
+    orderpage();
+}
+
 let confirmDelete=async (id)=>{
     deleteVisible.value = false;  
     const response =await deleteOrder(id)
@@ -237,11 +261,14 @@ let confirmPay=async (id)=>{
 
 }
 
-let handleComment=()=>{
-    
+let handleComment=(id)=>{
+    router.push(`/goodcomment?productId=${id}`);
 }
   
-
+const handleReceived=(id)=>{
+    const response=orderReceived(id);
+    orderpage();
+}
 onMounted(()=>{
     orderpage()
 })

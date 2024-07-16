@@ -126,9 +126,7 @@ onMounted(()=>{
     background-color: #f3f6f8;
 
 }
-.info-box
-{
-}
+
 .account
 {
     margin-top: 10px;

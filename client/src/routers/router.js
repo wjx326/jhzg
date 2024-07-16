@@ -22,6 +22,7 @@ import MessageList from '../pages/MessageList.vue'
 import Recharge from '../pages/Personal/PersonalPage/Recharge.vue'
 import CreateStore from '../pages/Personal/PersonalPage/CreateStore.vue'
 import GoodList from '../pages/GoodsList.vue'
+import GoodComment from  '../pages/GoodComment.vue'
 import Goodsdetail from '../pages/GoodsDetail/Detail.vue'
 // 创建路由对象,声明路由规则
 const router = createRouter({
@@ -53,11 +54,11 @@ const router = createRouter({
                 name:'Goodlist',
                 component:GoodList
                 },
-                {
-                    path : '/goodsdetail',
-                    name:'GoodsDetail',
-                    component:Goodsdetail
-                },
+              {
+                    path : '/goodcomment',
+                    component:GoodComment 
+        
+              },
               {
                 path:'personal',
                 name:'Personal',

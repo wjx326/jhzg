@@ -56,11 +56,13 @@
             <el-col :span="2">应付余额：</el-col>
             <el-col :span="2"  style="font-size: x-large;color: red;">{{ payMoney }}元</el-col>
         </el-row>
-        <el-button type="primary" style="color: white;" color="#26b0d5" size="large">确认支付</el-button>
+        <el-button type="primary" style="color: white;" color="#26b0d5" size="large" @click="confirmPay">确认支付</el-button>
     </div>
 </template>
 <script setup>
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { charge } from '../../../api/user';
 
 const amounts = [10, 20, 30] // 定义金额选项
 const selectedAmount = ref(null) // 用于存储选中的金额
@@ -88,6 +90,30 @@ const confirmCustomAmount=()=>{
     payMoney.value = customAmount.value
   }
 }
+const confirmPay = async () => { // 添加 async 关键字
+  if (payMoney.value <= 0) {
+    ElMessage({
+      message: '充值金额必须大于0元',
+      type: 'error'
+    });
+    return; // 添加 return 来终止函数执行
+  }
+  
+  try {
+    const response = await charge(payMoney.value);
+    // 处理 response，例如显示支付成功的消息
+    ElMessage({
+      message: '支付成功',
+      type: 'success'
+    });
+  } catch (error) {
+    // 处理 charge 函数可能抛出的错误
+    ElMessage({
+      message: `支付失败: ${error.message}`,
+      type: 'error'
+    });
+  }
+};
 </script>
 <style>
 .pay_card{

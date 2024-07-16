@@ -14,7 +14,7 @@ export  async function getShoppingCartList() {
     } catch (error) {  
       console.error('Error:', error);  
       throw error;
-    }  
+    }
 }
 
 export  async function shoppingCartDelete(id) {  
