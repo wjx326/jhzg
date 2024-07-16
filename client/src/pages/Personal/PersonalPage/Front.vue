@@ -6,6 +6,8 @@ import { ArrowRight } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
 import {getUserById} from '../../../api/user'
 import {getOrderTypeCount} from '../../../api/order'
+import {getAddressList} from '../../../api/address'
+
 
 const router = useRouter();
 
@@ -15,6 +17,8 @@ const size = ref(50)
 const spacer = h(ElDivider, { direction: 'vertical' })
 
 const count=ref([])
+
+const defaultAddress=ref('')
 
 function handleAddress(){
     router.push('/addresslist')
@@ -34,11 +38,21 @@ async function geTypeCount(){
     count.value.push(item.count);  
     });  
 }
+
+async function getAddress()
+{
+    const response=await getAddressList()
+    defaultAddress.value=response.data.filter(address => address.status === 1)[0];
+    console.log('defaultAddress.value',defaultAddress.value)
+}
+
+
    
 
 onMounted(()=>{
     getUser()
     geTypeCount()
+    getAddress()
 });
 
 </script>
@@ -57,7 +71,7 @@ onMounted(()=>{
                 <span style="font-size: small; color: gray;">{{ userStore.name }}</span>
                 </div>
             </el-col>
-            <el-col :span="6" :offset="6"><div class="bg-grey box-card" >
+            <el-col :span="9" :offset="3"><div class="bg-grey box-card" >
                 <el-row @click="handleAddress">收货地址
                     <el-link  :underline="false">  
                         <el-icon><ArrowRight /></el-icon>
@@ -65,7 +79,7 @@ onMounted(()=>{
                 </el-row><br>
                 <el-row>
                     <el-tag type="warning">默认</el-tag>
-                    {{ 'address' }}
+                    {{ defaultAddress.address }}
                 </el-row>
             </div>
             </el-col>
