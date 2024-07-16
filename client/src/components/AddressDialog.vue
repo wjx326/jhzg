@@ -11,8 +11,8 @@
     </el-form-item>
     <el-form-item label="性别">
       <el-radio-group v-model="form.sex" >
-        <el-radio value="男">男</el-radio>
-        <el-radio value="女">女</el-radio>
+        <el-radio value="0">男</el-radio>
+        <el-radio value="1">女</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="手机号">
@@ -23,6 +23,7 @@
       v-model=" form.address"
       :options="options"
       @change="handleChange"
+      placeholder="请选择"
     />
     </el-form-item>
     <el-form-item label="详细地址">
@@ -48,16 +49,24 @@
 
 <script setup>
 import { ref, watch, toRefs, defineProps, defineEmits } from 'vue'
+import {addressPage,addressSubmit,addressUpdate,addressDelete,setDefaultAddress} from '../api/address'
+import { ElMessage } from 'element-plus'; 
+
+
 
 const props = defineProps({
   modelValue: Boolean, // 接收 v-model 传递的值
   title: String,
   item:Object
 })
+
 const { item } = toRefs(props) // 使用 toRefs 来保持 props 的响应性
+const {title}= toRefs(props)
 const form = ref({ ...props.item }) // 使用展开运算符初始化 form
+
 watch(item, (newValue) => {
   form.value = { ...newValue } // 当 item 变化时，更新 form
+  console.log('form.value',form.value)
 })
 const emit = defineEmits(['update:modelValue'])
 
@@ -85,11 +94,47 @@ const closeDialog = () => {
   emit('update:modelValue', false)
 }
 
-const confirmDialog = () => {
-
+const confirmDialog = async() => {
+  console.log('title.value',title.value)
   localVisible.value = false
   emit('update:modelValue', false)
-  // 这里可以添加确认后的逻辑处理
+  if(title.value=='添加地址')
+  {
+    const response=await addressSubmit(form.value.id,form.value.address[1],form.value.name,form.value.detailAddress,
+    form.value.address[2],form.value.phoneNum,form.value.address[0],form.value.sex)
+    if(response.code==='0')
+      {
+        addressPage(1,5)
+          ElMessage({
+          message: '添加成功',
+          type: 'success',
+          })
+      }else{
+          ElMessage({
+          message: '添加失败',
+          type: 'error',
+          })
+      }
+  }else{
+    const response=await addressUpdate(form.value.address[1],form.value.name,form.value.detailAddress,
+    form.value.address[2],form.value.phoneNum,form.value.address[0],form.value.sex)
+    if(response.code==='0')
+      {
+        addressPage(1,5)
+          ElMessage({
+          message: '编辑成功',
+          type: 'success',
+          })
+      }else{
+          ElMessage({
+          message: '编辑失败',
+          type: 'error',
+          })
+      }
+
+  }
+  
+
 }
 
 
