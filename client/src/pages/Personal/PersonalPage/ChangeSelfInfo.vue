@@ -33,54 +33,6 @@
 
                 </div>
             </el-tab-pane>
-            <el-tab-pane name="second">
-                <template #label>
-                <span >
-                    <el-icon><User /></el-icon>
-                    <span>头像图片</span>
-                </span>
-                </template>
-                上传头像
-                <p style="margin: 20px;color: #606266;font-size: small;">支持jpg、jpeg、png 格式的图片<br>
-                请不要上传公司、店铺、商品的图片，本网站保留对账户进行全网站处罚的权力</p>
-                <div style="width:300px;height: 250px;margin: 20px;">
-                    <el-upload 
-                    action="#" 
-                    :file-list="fileList"
-                    list-type="picture-card" 
-                    :auto-upload="false" 
-                    :limit="1"
-                    @change="handleChange">
-                    <el-icon><Plus /></el-icon>
-
-                    <template #file="{ file }">
-                    <div>
-                        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
-                        <span class="el-upload-list__item-actions">
-                        <span
-                            class="el-upload-list__item-preview"
-                            @click="handlePictureCardPreview(file)"
-                        >
-                            <el-icon><zoom-in /></el-icon>
-                        </span>
-                       
-                        <span
-                            class="el-upload-list__item-delete"
-                            @click="handleRemove(file)"
-                        >
-                            <el-icon><Delete /></el-icon>
-                        </span>
-                        </span>
-                    </div>
-                    </template>
-                </el-upload>
-
-                <el-dialog v-model="dialogVisible">
-                    <img w-full :src="dialogImageUrl" alt="Preview Image" />
-                </el-dialog>
-
-                </div>
-            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
