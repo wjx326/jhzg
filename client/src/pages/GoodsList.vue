@@ -163,10 +163,12 @@ import { useGoodsStore } from '../stores/goodsStore';
 import {useGoodsCateStore} from '../stores/goodsCateStore'
 import { getAllCategories } from '../api/category'
 import { allGoodsPage } from '../api/goods'
-import { useRouter } from 'vue-router';  
+import { useRouter } from 'vue-router'; 
+import { useRoute } from 'vue-router';  
 import { footprintRecord } from '../api/footprint'
 
-
+const route = useRoute();  
+const searchText = route.query.searchText;
 
 const router = useRouter();  
 
@@ -177,7 +179,6 @@ const pageSize=ref(8)
 const priceSort= ref(null)
 const salesSort= ref(null)
 const scoreSort= ref(null)
-const goodsName= ref(null)
 const category_id= ref(null)
 
 
@@ -266,6 +267,6 @@ watch(selectedFilter, (newVal) => {
 
 onMounted(()=>{
   getCategories()
-  getGoods(1,8,null,true,null,null,null)
+  getGoods(1,8,priceSort,salesSort,scoreSort,searchText,category_id)
   })
 </script>
