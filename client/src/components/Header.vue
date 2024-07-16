@@ -3,10 +3,18 @@
     import { Search,Message,ShoppingCart } from '@element-plus/icons-vue'
     import { useRouter } from 'vue-router';
     import {logout} from '../api/user'
+    import {allGoodsPage} from '../api/goods'
+
+    import { useUserStore } from '../stores/userStore';
+
+    const userStore = useUserStore(); 
 
     const searchText = ref('')
     const titleImgUrl = ref('src/assets/img/title.png'); 
     const router = useRouter();
+
+    
+
     function handleAvatarClick() { 
         //这里条件判断，若当前无用户登录，则跳转登录，若有用户跳转个人界面
         if(true){ 
@@ -50,14 +58,14 @@
                 size="large"
                 >
             <template #append>
-                <el-button :icon="Search" type="primary" />
+                <el-button :icon="Search" type="primary" @click="handleSearch"/>
             </template>
             </el-input>
             </el-col>
 
             <el-col :span="2" :offset="1"><div class="avatar" />
                 <el-avatar  @click="handleAvatarClick"
-                :size="55" :fit="'contain'" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                :size="55" :fit="'contain'" :src="userStore.image"
                 />
             </el-col>
 
