@@ -39,7 +39,7 @@ export  async function addressPage(page,pageSize) {
   }  
 }
 
-export  async function addressSubmit(city_name,consignee,detail,district_name,phone,province_name,sex ) {  
+export  async function addressSubmit(city_name,consignee,detail,district_name,phone,province_name,sex) {  
     try {
         const body = {  
             city_name: city_name,

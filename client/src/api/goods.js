@@ -52,8 +52,8 @@ export  async function goodsGraph() {
     }  
 }
 
-export  async function shopGoodsPage(collectionSort,page,pageSize,
-    priceSort,salesSort,shop_id,timeSort) {  
+export  async function shopGoodsPage(page,pageSize,
+    priceSort,salesSort,shop_id,timeSort,collectionSort) {  
     try { 
         const params =
         {
@@ -91,7 +91,7 @@ export  async function getGoodsById(good_id) {
 }
 
 export async function allGoodsPage(page,pageSize,
-    priceSort,salesSort,scoreSort,name) {  
+    priceSort,salesSort,scoreSort,name,category_id) {  
     try { 
         const params =
         {
@@ -100,7 +100,8 @@ export async function allGoodsPage(page,pageSize,
             priceSort:priceSort,
             salesSort:salesSort,
             scoreSort:scoreSort,
-            name:name
+            name:name,
+            category_id:category_id
         }
       const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/page?apifoxApiId=192382279',
         { params: params,
@@ -112,6 +113,22 @@ export async function allGoodsPage(page,pageSize,
       console.error('Error:', error)  
       throw error; 
     }  
+}
+
+export  async function BuyGoodsNow(goods_id,number) {  
+  try {
+      const body=
+      {
+        goods_id:goods_id,
+          number:number
+      }  
+      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/buyNow',body,{ headers });
+      console.log('BuyGoodsNow',response.data)   
+      return response.data
+  } catch (error) {  
+      console.error('Error:', error);
+      throw error;  
+  }  
 }
 
 

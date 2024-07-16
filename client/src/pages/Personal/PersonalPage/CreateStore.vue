@@ -3,34 +3,70 @@
         <h2 style=" max-width: 100px;margin: auto;margin-bottom: 50px;">创建店铺</h2>
         <el-form label-width="auto" style="max-width: 300px;margin: auto;">
             <el-form-item label="店铺图片">
-                <el-upload
-                    class="avatar-uploader"
-                    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                >
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-                    <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-                </el-upload>
+                <el-upload  
+                    class="avatar-uploader"  
+                    action="http://127.0.0.1:4523/m1/4784568-4438548-default/user/common/upload"  
+                    :show-file-list="false"  
+                    :on-success="handleAvatarSuccess"  
+                >  
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar" />  
+                    <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>  
+                </el-upload> 
             </el-form-item>
             <el-form-item label="店铺名称">
-                <el-input />
+                <el-input v-model="shopName"/>
             </el-form-item>
             <el-form-item label="店铺描述">
-                <el-input />
+                <el-input v-model="description"/>
             </el-form-item>
             <el-form-item label="手机号">
-                <el-input />
+                <el-input v-model="phone"/>
             </el-form-item>
         </el-form>
         <div style=" max-width: 100px;margin: auto;margin-bottom: 50px;">
-            <el-button type="primary" style="color: white;" color="#26b0d5" size="large">确认创建</el-button>
+            <el-button type="primary" style="color: white;" color="#26b0d5" size="large" @click="createStore">确认创建</el-button>
         </div>
     </div>
 </template>
+
 <script setup>
+import {ref} from 'vue'
 import { Plus } from '@element-plus/icons-vue'
+import {createShop} from '../../../api/shop'
+import {uploadFile} from '../../../api/file'
+import { ElMessage } from 'element-plus'; 
+
+
+const shopName=ref(null)
+const description=ref(null)
+const phone=ref(null)
+const imageUrl = ref('');  
+
+const handleAvatarSuccess = (response, file, fileList) => { 
+      imageUrl.value = response.data || '';  
+};  
+
+
+
+const createStore=async ()=>{
+    const response=await createShop(description,imageUrl,shopName,phone)
+    if(response.code==='0'){
+        ElMessage({
+        message: '创建成功',
+        type: 'success',
+        })
+      }else{
+        ElMessage({
+        message: '创建失败',
+        type: 'error',
+        })
+      }
+
+
+}
+
 </script>
+
 <style scoped>
 .avatar-uploader .avatar {
   width: 178px;

@@ -51,7 +51,10 @@
            </div>
            <div class="home_sort_contain">
                <el-space wrap :size="25">
-                <el-card v-for="(goods, index) in goodsOpts" class="box-card" style="width: 250px">
+                <el-card v-for="(goods, index) in goodsOpts" 
+                class="box-card" 
+                style="width: 250px" 
+                @click="PushToDetail(goods.id)">
                       <div class="contain_img" style="height:100px">
                         <img :src="goods.image" style="width: 100%; height: 100%;">
                     </div>
@@ -76,7 +79,10 @@
            </div>
            <div class="home_sort_contain">
                <el-space wrap :size="50">
-                <el-card v-for="(goods, index) in goodsBrands" class="box-card" style="width: 250px">
+                <el-card v-for="(goods, index) in goodsBrands" 
+                class="box-card" 
+                style="width: 250px"
+                @click="PushToDetail(goods.id)">
                     <div class="contain_img" style="height:100px">
                         <img :src="goods.image" style="width: 100%; height: 100%;">
                     </div>
@@ -100,7 +106,10 @@
            </div>
            <div class="home_sort_contain">
                <el-space wrap :size="50">
-                <el-card v-for="(goods, index) in goodsSpis" class="box-card" style="width: 250px">
+                <el-card v-for="(goods, index) in goodsSpis" 
+                class="box-card" 
+                style="width: 250px"
+                @click="PushToDetail(goods.id)">
                     <div class="contain_img" style="height:100px">
                         <img :src="goods.image" style="width: 100%; height: 100%;">
                     </div>
@@ -125,6 +134,7 @@
     import { useRouter } from 'vue-router';
     import { goodsGraph,getGoodsById ,goodsOpt,goodsBrand,goodsSpi} from '../api/goods'
     import { categoryRecommend } from '../api/category'
+    import { footprintRecord } from '../api/footprint'
 
 
     const router = useRouter();
@@ -136,7 +146,11 @@
     const goodsSpis=ref([])
 
     
-
+    const PushToDetail=async (id)=>
+    {
+        await footprintRecord(id)
+        router.push({ name: 'GoodsDetail', query: { id } });  
+    }
     function handleSort(){
         router.push('/goodlist')
     }

@@ -1,7 +1,7 @@
 <template>
     <div class="commentList">
         <h2>用户评价</h2>
-        <el-link  
+        <!-- <el-link  
         :class="{ 'is-active': active === 'all' }"   
         @click="setActive('all')" :underline="false"
         style="font-size: 16px;
@@ -13,13 +13,13 @@
         @click="setActive('image')" :underline="false" style="font-size: 16px;
         color: #666;
         margin-right: 32px;">
-        有图/视频</el-link> 
+        有图/视频</el-link>  -->
       <br><br>
     
-        <div v-for="i in 4">
+        <div v-for="comment in Comments">
             <el-row>
                 <el-col :span="1" >
-                     <el-avatar :size="40" :src="userImgUrl" />
+                     <el-avatar :size="40" :src="comment.image" />
                 </el-col>
                 <el-col :span="20">
                     <span 
@@ -28,39 +28,77 @@
                     font-size: 14px;
                     color: #11192d;
                     line-height: 20px;">
-                    {{ 'userNickname' }}
+                    {{ comment.nickname }}
                     </span><br>
                     <span
                     style="font-family: PingFangSC-Regular;
                     font-size: 14px;
                     color: #50607a;
                     line-height: 20px;">
-                        {{ 'createdTime' }}
+                        {{ comment.created_time }}
                     </span><br><br>
                     <span
                     style="font-family: PingFangSC-Regular;
                     font-size: 14px;
                     color: #11192d;
                     line-height: 20px;">
-                    {{ 'content' }}</span><br>
+                    {{ comment.content }}</span><br>
                 </el-col>
             </el-row>
             <el-divider />
         </div>
+        <el-pagination
+        v-model:current-page="currentPage"
+        :page-size="5"
+        layout="total, prev, pager, next"
+        :total="total"
+        @current-change="handleCurrentChange"
+        />
     </div>
   
 </template>
 <script  setup>
-import { ref } from 'vue'
+import { ref ,onMounted} from 'vue'
+import { useRoute } from 'vue-router';  
+import {goodsCommentPage} from '../../api/comment'
+import {getUserById} from '../../api/user'
 
-let userImgUrl=ref('https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg')
-const active = ref('all');  
+
+const route = useRoute();  
+const productId = route.query.id;
+
+const total=ref(0)
+const currentPage=ref(1)
+
+const Comments=ref([])
+
+const handleCurrentChange = (val) => {
+    getCommentList(productId,val,5)
+}
+
+const getCommentList=async (productId,page,pageSize)=>{
+    const response = await goodsCommentPage(productId, page, pageSize);  
+    total.value = response.data.total;  
+    const comments = response.data.records.map(async (comment) => {  
+        const userInfo = await getUserById(comment.user_id);  
+            return {  
+                ...comment,  
+                nickname: userInfo.data.nickname,  
+                image: userInfo.data.image  
+            };  
+        });  
   
-    // 定义一个函数来设置选中状态  
-const setActive=(type)=> {  
-    active.value = type; 
-    console.log('active.value',active.value) 
-}  
+    const processedComments = await Promise.all(comments);  
+    Comments.value = processedComments; 
+    console.log('Comments.value',Comments.value)
+
+}
+
+
+
+onMounted(()=>{
+    getCommentList(productId,currentPage,5)
+})
 
 
 </script>

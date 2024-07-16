@@ -47,8 +47,6 @@ async function getAddress()
 }
 
 
-   
-
 onMounted(()=>{
     getUser()
     geTypeCount()
@@ -63,7 +61,7 @@ onMounted(()=>{
       <el-card  class="box-card" style="width: 900px">
         <el-row>
             <el-col :span="4"><div class="grid-content ep-bg-purple" />
-                <el-avatar  :size="85" :fit="'fill'" :src="userAvatarurl" />
+                <el-avatar  :size="85" :fit="'fill'" :src="userStore.image" />
             </el-col>
             <el-col :span="6"><div class="account">
                 <span style="font-size: larger;">{{ userStore.nickname }}</span><br>

@@ -1,89 +1,61 @@
 <template>
-  <div style="width: 98%; height: fit-content; margin: auto;">
-    <div style="width: 98%;
+  <div style="width: 98%;
     background-color: white;
-    height: fit-content;
     margin: 10px 0px 20px 4px;">
-  <el-row>
-    <el-col :span="24">
-    </el-col>
-    <el-col :span="17">
-        <ul class="select-list">
-            <li 
-            v-for="(filter, index) in filters" 
-            :key="index" 
-            class="select-list-item"
-            :class="{ selected: selectedFilter === filter }"
-            @click="toggleFilter(filter)"
-            >
-            <el-link :underline="false" href="">{{ filter }}</el-link>
-            </li>
-        </ul> 
-    </el-col>
-    <el-col :span="2"> 
-          <el-button @click="" style="margin-top: 25px;">全部删除</el-button>
-        </el-col>
-  </el-row>
-</div>
+   <div style="height: 50px;margin: 20px;margin-top: 2.25rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: .3rem;
+    line-height: 1.25;
+    font-size: 1.65rem;
+    color: #606266;
+    font-weight: 600;">关注的店铺</div>
+  <div style="width: 98%;
+    height: fit-content;
+    margin: 50px;">
+
+
+
   <el-row>
     <el-col :span="24">
         <el-space direction="vertical" :size="60">
-            <el-card v-for="i in 4" :key="i" class="box-card" shadow="hover">
-              <el-link>
-                <el-checkbox v-model="checked1"  size="large" />
-              </el-link>
+            <el-card v-for="item in focus" :key="i" class="box-card" shadow="hover">
+              <el-link :icon="Delete" :underline="false" @click="deleteCollect(item.id)"></el-link>
+
             <div class="text item">
-                <el-image style="width: 200px; height: 200px" :src="shopsImgurl" :fit="'fill'" /><br> 
+                <el-image style="width: 200px; height: 200px" :src="item.image" :fit="'fill'" /><br> 
             </div><br>
             <div style="text-align: center;">
-                 {{ 'shopsStore.name' }}
+                 {{ item.name }}
             </div><br>
             <div style="text-align: center; ">
-              <el-icon><Star /></el-icon> {{shopsStore.rate  }}
+              <el-rate
+              v-model="item.score"
+              disabled
+              show-score
+              text-color="#ff9900"
+              score-template="{value}分"
+            />
             </div><br>
             <hr>
             <br>
                 <div class="card-footer">
-                    <el-button text bg size="small" @click="goshop"><el-icon :size="22"><Shop /></el-icon>进入店铺</el-button>  
-                    <el-button text bg size="small"><el-icon :size="22"><Service /></el-icon>联系客服</el-button> 
+                    <el-button text bg  @click="goshop(item.shop_id)">
+                      <el-icon :size="22"><Shop /></el-icon>进入店铺</el-button>  
                 </div>
 
                 <div class="divider">
                   <el-divider direction="vertical" style="height: 450px;" />
                 </div>
                 <div class="card-right-content">
-
-                      <el-tabs
-                        v-model="activeName"
-                        type="card"
-                        class="demo-tabs"
-                        @tab-click="handleClick"
-                      >
-                        <el-tab-pane label="热销" name="first">
-                          <el-space wrap>
-                              <div v-for="o in 4" :key="o" class="text item" style="text-align: center; margin-left: 30px; margin-top: 20px;">
-                                <el-image style="width: 100px; height: 100px" :src="goodsImgurl" :fit="fill" /><br><br>
-                                ￥{{ goodsStore.price }}
-                              </div>
-                          </el-space>
-                        </el-tab-pane>
-                        <el-tab-pane label="新品" name="second">
-                          <el-space wrap>
-                              <div v-for="o in 4" :key="o" class="text item" style="text-align: center; margin-left: 30px; margin-top: 20px;">
-                                <el-image style="width: 100px; height: 100px" :src="goodsImgurl" :fit="fill" /><br><br>
-                                ￥{{ goodsStore.price }}
-                              </div>
-                          </el-space>
-                        </el-tab-pane>
-                        <el-tab-pane label="活动" name="third">
-                          <el-space wrap>
-                              <div v-for="o in 4" :key="o" class="text item" style="text-align: center; margin-left: 30px; margin-top: 20px;">
-                                <el-image style="width: 100px; height: 100px" :src="goodsImgurl" :fit="fill" /><br><br>
-                                ￥{{ goodsStore.price }}
-                              </div>
-                          </el-space>
-                        </el-tab-pane>
-                      </el-tabs>
+                  <div>
+                    关注时间：{{ item.created_time }}
+                  </div><br><br>
+                  <div>
+                    描述：{{ item.description }}
+                  </div><br><br>
+                  <div>
+                    联系方式：{{ item.phone }}
+                  </div>
                     
                 </div>
            
@@ -92,10 +64,15 @@
         </el-space>
     </el-col>
     <div style="margin-top: 30px;">
-      <el-pagination background layout="prev, pager, next" :total="1000" />
+      <el-pagination 
+      v-model:current-page="currentPage" 
+      layout="prev, pager, next" 
+      :page-size="5"
+      @current-change="handleCurrentChange"/>
     </div>
 
   </el-row>
+</div>
 </div>
   
 </template>
@@ -173,7 +150,7 @@
   font-size: 0; 
 }  
 .card-footer .el-button {  
-  margin: 0; /* 给按钮之间添加一些间距 */ 
+  margin-left: 45px; 
 }
 .box-card {  
   display: flex;  
@@ -189,9 +166,9 @@
     left: 300px;
     top: 100px;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     /* justify-content: space-between; */
-    /* align-items: center; */
+    align-items: left;
     padding: 10px;
     width: 609px;
 }
@@ -207,47 +184,70 @@
 </style>
 
 <script setup>
-import { h,ref } from 'vue';
-import { Shop,Service,Star } from '@element-plus/icons-vue'
-import { useGoodsCommentStore } from '../../../stores/goodsCommentStore'; 
-import { useGoodsStore } from '../../../stores/goodsStore'; 
-import { useShopsStore } from '../../../stores/shopsStore'; 
-
-
+import { ref ,onMounted} from 'vue';
+import { Shop,Delete } from '@element-plus/icons-vue'
 import { ElDivider } from 'element-plus'
-import router from '../../../routers/router';
+import router from '../../../routers/router'
+import {focusPage,focusDelete} from '../../../api/focus'
+import {getShopByShopId} from '../../../api/shop'
+import { ElMessage } from 'element-plus'; 
 
 
-const activeName = ref('first')
 
-const handleClick = (tab, event) => {
-  console.log(tab, event)
+
+const currentPage = ref(1)
+
+const focus=ref([])
+
+const deleteCollect=async (id)=>{
+  const response=await focusDelete(id)
+  if(response.code==='0'){
+        ElMessage({
+        message: '删除成功',
+        type: 'success',
+        })
+      }else{
+        ElMessage({
+        message: '删除失败',
+        type: 'error',
+        })
+      }
+}
+
+const getFocusPage=async (page,pageSize)=>{
+  const response=await focusPage(page,pageSize)
+
+  const focusList= response.data.map(async (focus) => {  
+        const shopInfo = await getShopByShopId(focus.shop_id);  
+            return {  
+                ...focus,
+                name:shopInfo.data.name,
+                image: shopInfo.data.image,
+                score: shopInfo.data.score,
+                phone:shopInfo.data.phone,
+                description:shopInfo.data.description,
+
+            };  
+        });  
+  
+    const processedFocus = await Promise.all(focusList);  
+    focus.value = processedFocus; 
+    console.log('focus.value',focus.value)
+
+
+}
+
+const handleCurrentChange = (val) => {
+  getFocusPage(val,5)
 }
 
 
-const size = ref(15)
-const spacer = h(ElDivider, { direction: 'vertical' })
 
-const goodsCommentStore = useGoodsCommentStore(); 
-const goodsStore = useGoodsStore(); 
-const shopsStore = useShopsStore(); 
-
-let shopsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-
-let goodsImgurl='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-const filters = ref([
-  '全部店铺',
-  '上新',
-  '优惠券',
-  '自营'
-]);
-const selectedFilter = ref('全部店铺'); // 默认选中'不限'
-
-const toggleFilter = (filter) => {
-  if (selectedFilter.value === filter) return;
-  selectedFilter.value = filter;
-};
-function goshop(){
-  router.push('/shop')
+function goshop(id){
+  router.push({ name: 'Shop', query: { id } });  
 }
+
+onMounted(()=>{
+  getFocusPage(1,5)
+})
 </script>

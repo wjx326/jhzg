@@ -2,22 +2,21 @@
     <div style=" width: 90%; margin: auto;padding:20px;">
         <div style="background-color: white;border-radius: 10px;padding: 20px;width: 100%;margin-bottom: 30px;">
             <el-row >
-                <el-col :span="3"><el-avatar shape="square" :size="120" :src="squareUrl" /></el-col>
+                <el-col :span="3"><el-avatar shape="square" :size="120" :src="shopInfo.image" /></el-col>
                 <el-col :span="15">
-                    <div style="font-size: larger;">店铺名称</div>
+                    <div style="font-size: larger;">{{shopInfo.name}}</div>
                     <img src="../assets/img/logo1.png" style="width: 76px;height: 16px;" >
                     <el-rate
-                        v-model="value"
+                        v-model="shopInfo.score"
                         disabled
                         show-score
                         text-color="#ff9900"
                         score-template="{value}分"
                     />
-                    <div>描述描述描述描述cccccccccccccc</div>
+                    <div>{{shopInfo.description}}</div>
                 </el-col>
                 <el-col :span="6">
-                    <el-button :icon="Plus">关注店铺</el-button>
-                    <el-button :icon="Service">联系客服</el-button>
+                    <el-button :icon="Plus" @click="addFocus">关注店铺</el-button>
                 </el-col>
             </el-row>
         </div>
@@ -31,7 +30,7 @@
                         v-model="input"
                         style="width: 150px"
                         placeholder="最低价格"
-                        :formatter="(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
+                        :formatter="(value) => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
                         :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
                     />
                     <el-icon style="margin-left: 10px;margin-right: 10px;"><Minus /></el-icon>
@@ -39,7 +38,7 @@
                         v-model="input"
                         style="width: 150px"
                         placeholder="最高价格"
-                        :formatter="(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
+                        :formatter="(value) => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
                         :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
                     />
                 </el-col>
@@ -61,81 +60,120 @@
                 <el-col :span="1"><div class="sort_tag">收藏</div></el-col>
                 <el-col :span="1"><div class="sort_tag" style="width: 70px;">价格<el-icon style="display: none;"><CaretTop /></el-icon><el-icon><CaretBottom /></el-icon></div></el-col>
             </el-row>
-            <div style="margin-top: 20px;">
+            <div style="margin-top: 20px; margin-bottom: 30px;">
                 <el-space wrap :size="50">
-                    <div style="border-radius: 10px;width: 250px;">
+                    <div v-for="goods in GoodsList" 
+                    style="border-radius: 10px;width: 250px;"
+                    @click="PushToDetail(goods.id)">
                       <div class="contain_img" style="height:200px;">
-                        <img src="../assets/img/banner3.jpg" style="border-radius: 10px;width: 100%; height: 100%;"></div>
+                        <img :src="goods.image" style="border-radius: 10px;width: 100%; height: 100%;">
+                      </div>
                         <div class="contain_img_detail" style=" height:70px">
-                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">电子产品absahdhjassadk</div>
-                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">￥12.05</div>
-                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">1000人已付款</div>
-                        </div>
-                    </div>
-                    <div style="border-radius: 10px;width: 250px;">
-                      <div class="contain_img" style="height:200px;">
-                        <img src="../assets/img/banner3.jpg" style="border-radius: 10px;width: 100%; height: 100%;"></div>
-                        <div class="contain_img_detail" style=" height:70px">
-                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">电子产品absahdhjassadk</div>
-                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">￥12.05</div>
-                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">1000人已付款</div>
-                        </div>
-                    </div>
-                    <div style="border-radius: 10px;width: 250px;">
-                      <div class="contain_img" style="height:200px;">
-                        <img src="../assets/img/banner3.jpg" style="border-radius: 10px;width: 100%; height: 100%;"></div>
-                        <div class="contain_img_detail" style=" height:70px">
-                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">电子产品absahdhjassadk</div>
-                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">￥12.05</div>
-                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">1000人已付款</div>
-                        </div>
-                    </div>
-                    <div style="border-radius: 10px;width: 250px;">
-                      <div class="contain_img" style="height:200px;">
-                        <img src="../assets/img/banner3.jpg" style="border-radius: 10px;width: 100%; height: 100%;"></div>
-                        <div class="contain_img_detail" style=" height:70px">
-                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">电子产品absahdhjassadk</div>
-                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">￥12.05</div>
-                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">1000人已付款</div>
-                        </div>
-                    </div>
-                    <div style="border-radius: 10px;width: 250px;">
-                      <div class="contain_img" style="height:200px;">
-                        <img src="../assets/img/banner3.jpg" style="border-radius: 10px;width: 100%; height: 100%;"></div>
-                        <div class="contain_img_detail" style=" height:70px">
-                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">电子产品absahdhjassadk</div>
-                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">￥12.05</div>
-                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">1000人已付款</div>
-                        </div>
-                    </div>
-                    <div style="border-radius: 10px;width: 250px;">
-                      <div class="contain_img" style="height:200px;">
-                        <img src="../assets/img/banner3.jpg" style="border-radius: 10px;width: 100%; height: 100%;"></div>
-                        <div class="contain_img_detail" style=" height:70px">
-                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">电子产品absahdhjassadk</div>
-                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">￥12.05</div>
-                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">1000人已付款</div>
-                        </div>
-                    </div>
-                    <div style="border-radius: 10px;width: 250px;">
-                      <div class="contain_img" style="height:200px;">
-                        <img src="../assets/img/banner3.jpg" style="border-radius: 10px;width: 100%; height: 100%;"></div>
-                        <div class="contain_img_detail" style=" height:70px">
-                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">电子产品absahdhjassadk</div>
-                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">￥12.05</div>
-                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">1000人已付款</div>
+                            <div style="margin-bottom: 5px;margin-top: 5px;color:#303133;">
+                                {{goods.name}}
+                            </div>
+                            <div style="font-size:x-large;font-weight: bold; margin-bottom: 5px;color:red">
+                                ￥{{goods.price}}
+                            </div>
+                            <div style="font-size:x-small;margin-bottom: 5px;color:#606266">
+                                {{goods.count}}人已付款
+                            </div>
                         </div>
                     </div>
                 </el-space>
+                
             </div>
+            <el-pagination
+            v-model:current-page="currentPage"
+            :page-size="pageSize"
+            :total="1000"
+            layout="prev, pager, next"
+            @current-change="handleCurrentChange"
+            />
         </div>
     </div>
 </template>
+
 <script setup>
-import { ref } from 'vue'
-import {Plus,Service,Search,CaretBottom,CaretTop,Minus} from '@element-plus/icons-vue'
-const value = ref(3)
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router';  
+import {Plus,Search,CaretBottom,CaretTop,Minus} from '@element-plus/icons-vue'
+import {shopGoodsPage} from '../api/goods'
+import {getShopByShopId} from '../api/shop'
+import {setFocus} from '../api/focus'
+import { ElMessage } from 'element-plus'; 
+import { useRouter } from 'vue-router';  
+import { footprintRecord } from '../api/footprint'
+
+
+
+const router = useRouter();
+
+const route = useRoute();  
+const shopId = route.query.id;
+
+const currentPage = ref(1)
+const pageSize=ref(8)
+const priceSort= ref(null)
+const salesSort= ref(null)
+const timeSort= ref(null)
+const collectionSort= ref(null)
+
+
+const GoodsList=ref([])
+const shopInfo=ref({})
+
+
+const addFocus=async (id)=>{
+    const response=await setFocus(id)
+    if(response.code==='0'){
+        ElMessage({
+        message: '关注成功',
+        type: 'success',
+        })
+      }else{
+        ElMessage({
+        message: '关注失败',
+        type: 'error',
+        })
+      }
+}
+
+const PushToDetail=async (id)=>{
+  await footprintRecord(id)
+  router.push({ name: 'GoodsDetail', query: { id } });  
+}
+
+const handleCurrentChange = (val) => {
+    getGoodsList(val,pageSize,
+    priceSort,salesSort,shopId,timeSort,collectionSort)
+}
+
+const getShopInfo=async (id)=>{
+    const response=await getShopByShopId(id)
+    shopInfo.value=response.data
+}
+
+const getGoodsList=async (page,pageSize,
+priceSort,salesSort,shopid,timeSort,collectionSort)=>{
+    const response=await shopGoodsPage(page,pageSize,
+    priceSort,salesSort,shopid,timeSort,collectionSort)
+    GoodsList.value=response.data
+
+}
+
+
+onMounted(()=>{
+    getShopInfo(shopId)
+    getGoodsList(currentPage,pageSize,
+    priceSort,salesSort,shopId,timeSort,collectionSort)
+})
+
+
+
 </script>
+
+
 <style>
 .sort_tag{
     background-color: #EBEEF5;color: #606266; border-radius:5px ;width: 60px;height: 30px;line-height: 30px;

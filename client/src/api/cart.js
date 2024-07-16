@@ -65,6 +65,23 @@ export  async function shoppingCartUpdate(id,number) {
 }
 
 
+export  async function shoppingCartInsert(goods_id,number) {  
+    try {
+        const body=
+        {
+            goods_id:goods_id,
+            number:number
+        }  
+        const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/insert',body,{ headers });
+        console.log('shoppingCartInsert',response.data)   
+        return response.data
+    } catch (error) {  
+        console.error('Error:', error);
+        throw error;  
+    }  
+}
+
+
 
 
 

@@ -7,7 +7,6 @@ const headers = {
 };
 
 
-//商品收藏
 export  async function getShopByGoodsId(goods_id) {  
   try { 
     const params =
