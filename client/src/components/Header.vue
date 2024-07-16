@@ -9,9 +9,15 @@
 
     const userStore = useUserStore(); 
 
-    const searchText = ref('')
+    const searchText = ref(null)
     const titleImgUrl = ref('src/assets/img/title.png'); 
     const router = useRouter();
+
+    const handleSearch=()=>{
+        console.log('searchText',searchText.value)
+        router.push({ name: 'Goodslist', query: { searchText: searchText.value } });
+        searchText.value=' '
+    }
 
     
 
