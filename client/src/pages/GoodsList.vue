@@ -195,22 +195,22 @@ const PushToDetail=async (id)=>{
 
 const getCatesGoods=(id)=>{
   category_id.value=id
-  getGoods(currentPage,pageSize,priceSort,salesSort,scoreSort,goodsName,category_id)
+  getGoods(currentPage,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)
 
 }
 
 const getFilterGoods=()=>{
-  getGoods(currentPage,pageSize,priceSort,salesSort,scoreSort,goodsName,category_id)
+  getGoods(currentPage,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)
 }
 
-const getGoods=async (page,pageSize,priceSort,salesSort,scoreSort,goodsName,category_id)=>{
-  const response=await allGoodsPage(page,pageSize,priceSort,salesSort,scoreSort,goodsName,category_id)
+const getGoods=async (page,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)=>{
+  const response=await allGoodsPage(page,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)
   total.value=response.data.total
   GoodsList.value=response.data.records
 }
 
 const handleCurrentChange = (val) => {
-  getGoods(val,pageSize,priceSort,salesSort,scoreSort,goodsName,category_id)
+  getGoods(val,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)
   console.log(`current page: ${val}`)
 }
 
