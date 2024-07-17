@@ -154,7 +154,7 @@ const selectCustomAmount =() => {
 }
 const addFocus=async (id)=>{
     const response=await setFocus(id)
-    if(response.code==='0'){
+    if(response.code==='200'){
         ElMessage({
         message: '关注成功',
         type: 'success',

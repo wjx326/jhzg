@@ -201,7 +201,7 @@ const focus=ref([])
 
 const deleteCollect=async (id)=>{
   const response=await focusDelete(id)
-  if(response.code==='0'){
+  if(response.code==='200'){
         ElMessage({
         message: '删除成功',
         type: 'success',

@@ -55,7 +55,7 @@ let password=ref('')
 let confirmPass=ref('')
 
 async function sendCaptcha(){
-    console.log('email',email)
+    // console.log('email',email)
     const response=await captchaSend(email.value)
 }
 
@@ -65,7 +65,7 @@ function handleBackClick() {
 async function handleConfirmClick() {
     const response = await register(captcha.value,email.value,password.value)
     
-    if(response.code==='0')
+    if(response.code==='200')
     {
         router.push('/');
         ElMessage({

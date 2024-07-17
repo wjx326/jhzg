@@ -159,7 +159,7 @@ const confirmDelete=async (id)=>{
   console.log('id',id)
   deleteDialog.value=false
   const response=await addressDelete(id)
-    if(response.code==='0')
+    if(response.code==='200')
       {
         addressPage(1,5)
           ElMessage({
@@ -179,7 +179,7 @@ const confirmDelete=async (id)=>{
 const handleSetDefault=async (id)=>{
   console.log('id',id)
   const response=await setDefaultAddress(id)
-  if(response.code==='0')
+  if(response.code==='200')
       {
         addressPage(1,5)
           ElMessage({
