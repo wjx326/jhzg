@@ -14,7 +14,7 @@
                         <el-col :span="4" style="line-height: 104px;"><span >当前头像</span></el-col>
                         <el-upload
                             class="avatar-uploader"
-                            action="http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/update"
+                            action="/api/user/user/update"
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess"
                         >

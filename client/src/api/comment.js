@@ -14,7 +14,7 @@ export  async function commentPage(page,pageSize) {
         page:page,
         pageSize:pageSize
     }
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/comment/page',
+    const response = await axios.get('/api/user/comment/page',
         { 
           params: params,
           headers:headers
@@ -37,7 +37,7 @@ export  async function goodsCommentPage(goods_id,page,pageSize) {
         page:page,
         pageSize:pageSize
       }
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/comment/goods/page',
+      const response = await axios.get('/api/user/comment/goods/page',
           { 
             params: params,
             headers:headers 
@@ -62,7 +62,7 @@ export  async function commentSubmit(content,goods_id,goods_score,is_hide,shop_s
             is_hide:is_hide,
             shop_score:shop_score,
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/comment/submit',body,{headers:headers});
+      const response = await axios.post('/api/user/comment/submit',body,{headers:headers});
       console.log('commentSubmit',response.data)   
       return response.data
     } catch (error) {  

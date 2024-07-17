@@ -17,7 +17,7 @@
                         <el-form-item label="验证码">
                             <el-input  style="width: 100%" placeholder="请输入验证码" v-model="captcha">
                                 <template #append>
-                                    <el-button >发送验证码</el-button>
+                                    <el-button @click="sendCaptcha">发送验证码</el-button>
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -43,6 +43,8 @@ import {ref} from 'vue'
 import { ElMessage } from 'element-plus'; 
 import { useRouter } from 'vue-router';
 import {register} from '../api/user'
+import {captchaSend} from '../api/email'
+
 
 
 const router = useRouter();
@@ -52,11 +54,16 @@ let captcha=ref('')
 let password=ref('')
 let confirmPass=ref('')
 
+async function sendCaptcha(){
+    console.log('email',email)
+    const response=await captchaSend(email.value)
+}
+
 function handleBackClick() {
     router.push('/login');
 } 
 async function handleConfirmClick() {
-    const response = await register(captcha,email,password)
+    const response = await register(captcha.value,email.value,password.value)
     
     if(response.code==='0')
     {

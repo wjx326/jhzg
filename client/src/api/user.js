@@ -18,7 +18,7 @@ export async function login(name, password) {
         name: name,  
         password: password  
       };  
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/login', body);  
+      const response = await axios.post('/api/user/user/login', body);  
       const token = response.data.data.token; // 假设token在响应数据的token属性中  
       setAuthToken(token); // 保存token 
       return response.data
@@ -32,8 +32,7 @@ export async function login(name, password) {
   //根据id查用户信息
   export  async function getUserById(user_id) {  
     try {  
-      // const response = await axios.get(`api/user/user/{user_id}`);
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/1',
+      const response = await axios.get(`api/user/user/${user_id}`,
         { headers });   
       console.log('getUserById',response.data)
       return response.data
@@ -51,7 +50,7 @@ export async function login(name, password) {
         nickname: nickname,
         sex:sex 
       };  
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/update', body,{ headers });  
+      const response = await axios.post('/api/user/user/update', body,{ headers });  
       console.log('updateInfo',response.data)
       return response.data 
     } catch (error) {  
@@ -70,7 +69,7 @@ export async function login(name, password) {
         password:password 
       };  
     
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/change/password', body,{ headers });  
+      const response = await axios.post('/api/user/user/change/password', body,{ headers });  
       } catch (error) {  
       console.error('Error:', error); 
       throw error; 
@@ -85,7 +84,7 @@ export async function login(name, password) {
         captcha: captcha,  
         email: email,
       };  
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/change/email', body,{ headers });
+      const response = await axios.post('/api/user/user/change/email', body,{ headers });
       console.log('changeEmail',response.data)  
 
       } catch (error) {
@@ -97,7 +96,7 @@ export async function login(name, password) {
   //用户登出
   export async function logout() {  
     try {  
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/logout',{ headers });
+      const response = await axios.post('/api/user/user/logout',{ headers });
       console.log('logout',response.data)  
       } catch (error) {  
       console.error('Error:', error);
@@ -113,7 +112,7 @@ export async function login(name, password) {
         email: email,
         password: password  
       };  
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/register', body);  
+      const response = await axios.post('/api/user/user/register', body);  
       console.log('register',response.data)
       return response.data
     } catch (error) {  
@@ -129,7 +128,7 @@ export async function login(name, password) {
       const body = {  
         amount: amount, 
       }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/charge', body,{ headers });  
+      const response = await axios.post('/api/user/user/charge', body,{ headers });  
       console.log('charge',response.data)
       return response.data
     } catch (error) {  

@@ -10,7 +10,7 @@ const headers = {
 
 export  async function goodsOpt() {  
     try {   
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/opt',{headers});
+      const response = await axios.get('/api/user/goods/opt',{headers});
       console.log('goodsOpt',response.data)   
       return response.data
     } catch (error) {  
@@ -21,7 +21,7 @@ export  async function goodsOpt() {
 
 export  async function goodsBrand() {  
   try {  
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/brand',{headers});
+    const response = await axios.get('/api/user/goods/brand',{headers});
     console.log('goodsBrand',response.data)   
     return response.data
   } catch (error) {  
@@ -32,7 +32,7 @@ export  async function goodsBrand() {
 
 export  async function goodsSpi() {  
     try {  
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/spi',{headers});
+      const response = await axios.get('/api/user/goods/spi',{headers});
       console.log('goodsSpi',response.data)   
       return response.data
     } catch (error) {  
@@ -43,7 +43,7 @@ export  async function goodsSpi() {
 
 export  async function goodsGraph() {  
     try {  
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/graph',{headers});
+      const response = await axios.get('/api/user/goods/graph',{headers});
       console.log('goodsGraph',response.data)   
       return response.data
     } catch (error) {  
@@ -65,7 +65,7 @@ export  async function shopGoodsPage(page,pageSize,
             shop_id:shop_id,
             timeSort:timeSort,
         }
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/page?apifoxApiId=192155649',
+      const response = await axios.get('/api/user/goods/page',
         { params: params,
           headers:headers
          });
@@ -79,9 +79,8 @@ export  async function shopGoodsPage(page,pageSize,
 
 export  async function getGoodsById(good_id) {  
     try {  
-    // const response = await axios.get('/user/goods/{good_id}');
 
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/1',{headers});
+      const response = await axios.get(`/api/user/goods/${good_id}`,{headers});
       console.log('getGoodsById',response.data)   
       return response.data
     } catch (error) {  
@@ -103,7 +102,7 @@ export async function allGoodsPage(page,pageSize,
             name:name,
             category_id:category_id
         }
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/page?apifoxApiId=192382279',
+      const response = await axios.get('/api/user/goods/page',
         { params: params,
           headers:headers
          })
@@ -122,7 +121,7 @@ export  async function BuyGoodsNow(goods_id,number) {
         goods_id:goods_id,
           number:number
       }  
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/goods/buyNow',body,{ headers });
+      const response = await axios.post('/api/user/goods/buyNow',body,{ headers });
       console.log('BuyGoodsNow',response.data)   
       return response.data
   } catch (error) {  

@@ -97,7 +97,7 @@ const getCommentList=async (productId,page,pageSize)=>{
 
 
 onMounted(()=>{
-    getCommentList(productId,currentPage,5)
+    getCommentList(productId,currentPage.value,5)
 })
 
 

@@ -142,15 +142,15 @@ const selectAmount = (amount) => {
     timeSort.value=false
     collectionSort.value=true
   }
-    getGoodsList(currentPage,pageSize,
+    getGoodsList(currentPage.value,pageSize.value,
     priceSort,salesSort,shopId,timeSort,collectionSort)
 }
 
 const selectCustomAmount =() => {
   selectedAmount.value = "价格"
   priceSort.value=!priceSort.value
-    getGoodsList(currentPage,pageSize,
-    priceSort,salesSort,shopId,timeSort,collectionSort)
+    getGoodsList(currentPage.value,pageSize.value,
+    priceSort.value,salesSort.value,shopId,timeSort.value,collectionSort.value)
 }
 const addFocus=async (id)=>{
     const response=await setFocus(id)
@@ -173,8 +173,8 @@ const PushToDetail=async (id)=>{
 }
 
 const handleCurrentChange = (val) => {
-    getGoodsList(val,pageSize,
-    priceSort,salesSort,shopId,timeSort,collectionSort)
+    getGoodsList(val,pageSize.value,
+    priceSort.value,salesSort.value,shopId,timeSort.value,collectionSort.value)
 }
 
 const getShopInfo=async (id)=>{
@@ -193,8 +193,8 @@ priceSort,salesSort,shopid,timeSort,collectionSort)=>{
 
 onMounted(()=>{
     getShopInfo(shopId)
-    getGoodsList(currentPage,pageSize,
-    priceSort,salesSort,shopId,timeSort,collectionSort)
+    getGoodsList(currentPage.value,pageSize.value,
+    priceSort.value,salesSort.value,shopId,timeSort.value,collectionSort.value)
 })
 
 

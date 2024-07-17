@@ -14,7 +14,7 @@ export  async function footprintPage(page,pageSize) {
         page:page,
         pageSize:pageSize
     }
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/footprint/page',
+    const response = await axios.get('/api/user/footprint/page',
         { params: params,
           headers:headers
          }
@@ -34,7 +34,7 @@ export  async function footprintRecord(goods_id) {
         {
             goods_id:goods_id,
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/footprint/recording',body,{headers});
+      const response = await axios.post('/api/user/footprint/recording',body,{headers});
       console.log('footprintRecord',response.data)   
       return response.data
     } catch (error) {  
