@@ -75,7 +75,7 @@ async function handleLoginClick() {
 
     const userInfo=await getUserById(response.data.id)
     userStore.setUser(userInfo.data)
-    router.push('/');
+    router.push('/mall');
     ElMessage({
         message: '登录成功',
         type: 'success',

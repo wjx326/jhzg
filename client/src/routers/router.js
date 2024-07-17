@@ -29,23 +29,28 @@ const router = createRouter({
 
     history : createWebHashHistory(),
     routes : [
+        {
+            path:'/',
+            redirect:'/login'
+
+        },
         {  
-            path: '/',  
+            path: '/mall',  
             name: 'Mall',  
             component: Mall,  
             children: [  
               {  
-                path: '',  
+                path: '/mall',  
                 name: 'Home',  
                 component: Home  
               },  
               {  
-                path: 'shop',  
+                path: '/shop',  
                 name: 'Shop',  
                 component: Shop  
               },
               {  
-                path: 'message',  
+                path: '/message',  
                 name: 'MessageList',  
                 component: MessageList 
               },
@@ -55,7 +60,7 @@ const router = createRouter({
                 component:Goodsdetail
             },
               {
-                path : 'goodslist',
+                path : '/goodslist',
                 name:'Goodslist',
                 component:GoodsList
                 },
@@ -65,7 +70,7 @@ const router = createRouter({
         
               },
               {
-                path:'personal',
+                path:'/personal',
                 name:'Personal',
                 component:Personal,
                 children:[
@@ -145,7 +150,7 @@ const router = createRouter({
         {  
             path: '/login',  
             name: 'Login',  
-            component: Login  
+            component: Login 
          },
         {
             path : '/register',

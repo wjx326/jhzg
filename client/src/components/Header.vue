@@ -31,7 +31,7 @@
         }
     }
     function handletitle(){
-        router.push('/')
+        router.push('/mall')
     }
 
     function handlelogout(){
