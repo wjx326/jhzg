@@ -70,7 +70,7 @@ const handleAvatarSuccess = (response, file, fileList) => {
 }
 
 const submit=async ()=>{
-    const response = await updateInfo(imageUrl,nickname,sex)
+    const response = await updateInfo(imageUrl.value,nickname.value,sex.value)
     if(response.code==='0'){
         const userId=localStorage.getItem('userId')
         const response=await getUserById(userId)
