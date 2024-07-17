@@ -262,7 +262,7 @@ let confirmPay=async (id)=>{
 }
 
 let handleComment=(id)=>{
-    router.push(`/goodcomment?productId=${id}`);
+    router.push(`/goodscomment?productId=${id}`);
 }
   
 const handleReceived=(id)=>{
