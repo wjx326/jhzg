@@ -257,8 +257,6 @@ let confirmPay=async (id)=>{
          type: 'error',
          })
      }
-
-
 }
 
 let handleComment=(id)=>{

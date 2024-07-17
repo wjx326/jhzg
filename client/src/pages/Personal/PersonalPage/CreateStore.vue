@@ -49,7 +49,7 @@ const handleAvatarSuccess = (response, file, fileList) => {
 
 
 const createStore=async ()=>{
-    const response=await createShop(description,imageUrl,shopName,phone)
+    const response=await createShop(description.value,imageUrl.value,shopName.value,phone.value)
     if(response.code==='200'){
         ElMessage({
         message: '创建成功',

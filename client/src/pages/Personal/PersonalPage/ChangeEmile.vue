@@ -71,7 +71,7 @@ const testify = () => {
     element1.style.display = 'none';
     element2.style.display = ''; 
     element3.style.display = 'none';
-    captchaVertify(email1,captcha1)  
+    captchaVertify(email1.value,captcha1.value)  
 
 };
 const change = async () => {
@@ -82,7 +82,7 @@ const change = async () => {
     element1.style.display = 'none';
     element2.style.display = 'none'; 
     element3.style.display = '';
-    changeEmail(captcha2,email2)
+    changeEmail(captcha2.value,email2.value)
 
 }
 const back = () => {
