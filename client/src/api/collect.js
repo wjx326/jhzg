@@ -15,7 +15,7 @@ export  async function collectPage(page,pageSize) {
         page:page,
         pageSize:pageSize
     }
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect/page',
+    const response = await axios.get('/api/user/collect/page',
         { 
           params: params,
           headers:headers
@@ -36,7 +36,7 @@ export  async function collectDelete(id) {
     {
         id:id
     }  
-      const response = await axios.delete('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect/delete',
+      const response = await axios.delete('/api/user/collect/delete',
         { 
             data: body,
             headers:headers 
@@ -51,8 +51,7 @@ export  async function collectDelete(id) {
 
 export  async function getcollectById(collect_id) {  
     try { 
-            //   const response = await axios.get(`api/user/collect/{collect_id}`);
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect/1',{ headers });
+      const response = await axios.get(`/api/user/collect/${collect_id}`,{ headers });
       console.log('getcollectById',response.data)   
       return response.data
     } catch (error) {  
@@ -67,7 +66,7 @@ export  async function setCollect(goods_id) {
         {
             goods_id:goods_id
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/collect',body,{ headers });
+      const response = await axios.post('/api/user/collect',body,{ headers });
       console.log('setCollect',response.data)   
       return response.data
     } catch (error) {  

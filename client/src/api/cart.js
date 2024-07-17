@@ -8,7 +8,7 @@ const headers = {
 
 export  async function getShoppingCartList() {  
     try {   
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/list',{headers});
+      const response = await axios.get('/api/user/shoppingCart/list',{headers});
       console.log('getShoppingCartList',response.data)   
       return response.data
     } catch (error) {  
@@ -23,7 +23,7 @@ export  async function shoppingCartDelete(id) {
         {
             id:id
         }  
-        const response = await axios.delete('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/delete',
+        const response = await axios.delete('/api/user/shoppingCart/delete',
         { 
             data: body,
             headers:headers 
@@ -39,7 +39,7 @@ export  async function shoppingCartDelete(id) {
 
 export  async function shoppingCartSettled() {  
     try {
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/settled',{ headers });
+      const response = await axios.post('/api/user/shoppingCart/settled',{ headers });
       console.log('shoppingCartSettled',response.data)   
       return response.data
     } catch (error) {  
@@ -55,7 +55,7 @@ export  async function shoppingCartUpdate(id,number) {
             id:id,
             number:number
         }  
-        const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/update',body,{ headers });
+        const response = await axios.post('/api/user/shoppingCart/update',body,{ headers });
         console.log('shoppingCartUpdate',response.data)   
         return response.data
     } catch (error) {  
@@ -72,7 +72,7 @@ export  async function shoppingCartInsert(goods_id,number) {
             goods_id:goods_id,
             number:number
         }  
-        const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shoppingCart/insert',body,{ headers });
+        const response = await axios.post('/api/user/shoppingCart/insert',body,{ headers });
         console.log('shoppingCartInsert',response.data)   
         return response.data
     } catch (error) {  

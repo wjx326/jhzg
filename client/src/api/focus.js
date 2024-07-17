@@ -14,7 +14,7 @@ export  async function focusPage(page,pageSize) {
         page:page,
         pageSize:pageSize
     }
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/focus/page',
+    const response = await axios.get('/api/user/focus/page',
         { params: params,
           headers:headers
          }
@@ -34,7 +34,7 @@ export  async function focusDelete(focus_id) {
     {
         focus_id:focus_id
     }  
-      const response = await axios.delete('http://127.0.0.1:4523/m1/4784568-4438548-default/user/focus/delete',
+      const response = await axios.delete('/api/user/focus/delete',
         { 
             data: body,
             headers:headers 
@@ -55,7 +55,7 @@ export  async function setFocus(shop_id) {
         {
             shop_id:shop_id
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/focus/focus',body,{headers});
+      const response = await axios.post('/api/user/focus/focus',body,{headers});
       console.log('setFocus',response.data)   
       return response.data
     } catch (error) {  

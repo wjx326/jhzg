@@ -12,7 +12,7 @@ export  async function uploadFile(file) {
         {
             file:file,
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/common/upload',body,{headers});
+      const response = await axios.post('/api/user/common/upload',body,{headers});
       console.log('uploadFile',response.data)   
       return response.data
     } catch (error) {  

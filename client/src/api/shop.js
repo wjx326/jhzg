@@ -13,7 +13,7 @@ export  async function getShopByGoodsId(goods_id) {
     {
         goods_id:goods_id
     }
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/queryByGoodsId',
+    const response = await axios.get('/api/user/shop/queryByGoodsId',
         { params: params,
           headers:headers
          }
@@ -29,8 +29,7 @@ export  async function getShopByGoodsId(goods_id) {
 
 export  async function getShopByShopId(shop_id) {  
     try { 
-            //   const response = await axios.get(`api/user/shop/{shop_id}`);
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/1',{headers});
+      const response = await axios.get(`api/user/shop/${shop_id}`,{headers});
       console.log('getShopByShopId',response.data)   
       return response.data
     } catch (error) {  
@@ -45,7 +44,7 @@ export  async function getShopByUserId(user_id) {
       {
         user_id:user_id
       }
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/queryByUser',
+      const response = await axios.get('/api/user/shop/queryByUser',
           { params: params,
             headers:headers
            }
@@ -71,7 +70,7 @@ export  async function createShop(description,image,name,phone) {
             name:name,
             phone:phone,
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/shop/create',body,{headers});
+      const response = await axios.post('/api/user/shop/create',body,{headers});
       console.log('createShop',response.data)   
       return response.data
     } catch (error) {  

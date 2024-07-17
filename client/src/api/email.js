@@ -12,7 +12,7 @@ export  async function captchaSend(email) {
         const params = {  
             email: email,  
         };  
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/captcha/send',
+      const response = await axios.get('/api/user/captcha/send',
         { params: params,
           headers:headers
          });
@@ -30,7 +30,7 @@ export  async function captchaVertify(email,captcha) {
           email: email,
           captcha:captcha
       };  
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/captcha/vertify',
+    const response = await axios.get('/api/user/captcha/vertify',
       { params: params,
         headers:headers
        });

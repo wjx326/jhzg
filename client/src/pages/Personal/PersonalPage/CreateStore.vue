@@ -5,7 +5,7 @@
             <el-form-item label="店铺图片">
                 <el-upload  
                     class="avatar-uploader"  
-                    action="http://127.0.0.1:4523/m1/4784568-4438548-default/user/common/upload"  
+                    action="/api/user/common/upload"  
                     :show-file-list="false"  
                     :on-success="handleAvatarSuccess"  
                 >  

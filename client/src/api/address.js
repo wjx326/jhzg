@@ -8,7 +8,7 @@ const headers = {
 
 export  async function getAddressList() {  
     try {   
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/list',{ headers });
+      const response = await axios.get('/api/user/address/list',{ headers });
       console.log('getAddressList',response.data)   
       return response.data
     } catch (error) {  
@@ -26,7 +26,7 @@ export  async function addressPage(page,pageSize) {
         pageSize:pageSize
 
     }
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/page',
+    const response = await axios.get('/api/user/address/page',
         { params: params,
           headers: headers
          }
@@ -51,7 +51,7 @@ export  async function addressSubmit(city_name,consignee,detail,district_name,ph
             sex: sex,
 
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/submit',
+      const response = await axios.post('/api/user/address/submit',
         body,{ headers });
       console.log('addressSubmit',response.data)   
       return response.data
@@ -74,7 +74,7 @@ export  async function addressUpdate(id,city_name,consignee,detail,district_name
             sex: sex,
 
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/update',
+      const response = await axios.post('/api/user/address/update',
         body,{ headers });
       console.log('addressUpdate',response.data)   
       return response.data
@@ -90,7 +90,7 @@ export  async function addressDelete(address_id) {
     {
         address_id:address_id
     }  
-      const response = await axios.delete('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/delete',
+      const response = await axios.delete('/api/user/address/delete',
         { 
             data: body,
             headers: headers
@@ -109,7 +109,7 @@ export  async function setDefaultAddress(address_id) {
         {
             address_id:address_id
         }
-      const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/address/default',body,{headers});
+      const response = await axios.post('/api/user/address/default',body,{headers});
       console.log('setDefaultAddress',response.data)   
       return response.data
     } catch (error) {  

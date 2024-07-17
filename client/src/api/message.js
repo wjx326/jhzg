@@ -12,7 +12,7 @@ export  async function getMessagesByShopid(id) {
         {
             shop_id:id
         }
-      const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/message/queryByShop',
+      const response = await axios.get('/api/user/message/queryByShop',
         { params: params,
           headers:headers
          });
@@ -26,7 +26,7 @@ export  async function getMessagesByShopid(id) {
 
 export  async function getLatestMessage() {  
   try { 
-    const response = await axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/user/message/new',{headers});
+    const response = await axios.get('/api/user/message/new',{headers});
     console.log('getLatestMessage',response.data)   
     return response.data
   } catch (error) {  
