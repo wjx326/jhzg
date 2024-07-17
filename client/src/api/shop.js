@@ -51,6 +51,8 @@ export  async function getShopByUserId(user_id) {
            }
       );
       console.log('getShopByUserId',response.data)   
+      const token = response.data.data; 
+      localStorage.setItem('UserAndShopToken', token);  
       return response.data
     } catch (error) {  
       console.error('Error:', error); 

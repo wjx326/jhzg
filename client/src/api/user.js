@@ -97,7 +97,6 @@ export async function login(name, password) {
   //用户登出
   export async function logout() {  
     try {  
-      
       const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/logout',{ headers });
       console.log('logout',response.data)  
       } catch (error) {  
@@ -130,7 +129,6 @@ export async function login(name, password) {
       const body = {  
         amount: amount, 
       }
-
       const response = await axios.post('http://127.0.0.1:4523/m1/4784568-4438548-default/user/user/charge', body,{ headers });  
       console.log('charge',response.data)
       return response.data
