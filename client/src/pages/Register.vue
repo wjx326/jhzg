@@ -42,10 +42,9 @@
 import {ref} from 'vue'
 import { ElMessage } from 'element-plus'; 
 import { useRouter } from 'vue-router';
-import {useUserStore} from '../stores/userStore'
 import {register} from '../api/user'
 
-const userStore = useUserStore();
+
 const router = useRouter();
 
 let email=ref('')

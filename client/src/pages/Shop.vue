@@ -26,7 +26,7 @@
                     全部商品
                 </el-col>
                 <el-col :span="8" :offset="6">
-                    <el-input
+                    <!-- <el-input
                         v-model="input"
                         style="width: 150px"
                         placeholder="最低价格"
@@ -40,25 +40,25 @@
                         placeholder="最高价格"
                         :formatter="(value) => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
                         :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
-                    />
+                    /> -->
                 </el-col>
-                <el-col :span="5" >
-                    <el-input
-                        v-model="input3"
-                        placeholder="搜索商品"
-                        class="input-with-select"
-                        >
-                            <template #append>
-                                <el-button :icon="Search" />
-                            </template>
-                        </el-input>
-                </el-col>
+                
             </el-row>
             <el-row style="text-align: center;margin-top: 30px;" :gutter="80">
-                <el-col :span="1"><div class="sort_tag selected">销量</div></el-col>
-                <el-col :span="1"><div class="sort_tag">新品</div></el-col>
-                <el-col :span="1"><div class="sort_tag">收藏</div></el-col>
-                <el-col :span="1"><div class="sort_tag" style="width: 70px;">价格<el-icon style="display: none;"><CaretTop /></el-icon><el-icon><CaretBottom /></el-icon></div></el-col>
+                <el-col :span="1"  v-for="(amount, index) in amounts" :key="index">
+                    <div class="sort_tag" 
+                    :class="{ selected: selectedAmount === amount }"
+                    @click="selectAmount(amount)">{{amount}}</div>
+                </el-col>
+                <el-col :span="1">
+                    <div class="sort_tag" style="width: 70px;" 
+                        :class="{ selected: selectedAmount === '价格' }"
+                        @click="selectCustomAmount">
+                        价格
+                        <el-icon v-if="priceSort"><CaretTop /></el-icon>
+                        <el-icon v-else><CaretBottom /></el-icon>
+                    </div>
+                </el-col>
             </el-row>
             <div style="margin-top: 20px; margin-bottom: 30px;">
                 <el-space wrap :size="50">
@@ -97,7 +97,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';  
-import {Plus,Search,CaretBottom,CaretTop,Minus} from '@element-plus/icons-vue'
+import {Plus,Search,CaretBottom,CaretTop} from '@element-plus/icons-vue'
 import {shopGoodsPage} from '../api/goods'
 import {getShopByShopId} from '../api/shop'
 import {setFocus} from '../api/focus'
@@ -105,7 +105,8 @@ import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';  
 import { footprintRecord } from '../api/footprint'
 
-
+const amounts=["销量","收藏","新品"]
+const selectedAmount=ref("销量")
 
 const router = useRouter();
 
@@ -114,16 +115,43 @@ const shopId = route.query.id;
 
 const currentPage = ref(1)
 const pageSize=ref(8)
-const priceSort= ref(null)
-const salesSort= ref(null)
-const timeSort= ref(null)
+const priceSort= ref(true)
+const salesSort= ref(true)
+const timeSort= ref(true)
 const collectionSort= ref(null)
 
-
+const input=ref('')
 const GoodsList=ref([])
 const shopInfo=ref({})
 
+const selectAmount = (amount) => {
+  selectedAmount.value = amount
+  priceSort.value=true;
+  if(amount==="销量"){
+    salesSort.value=false
+    timeSort.value=true
+    collectionSort.value=true
+  }
+  else if(amount==="收藏"){
+    salesSort.value=true
+    timeSort.value=true
+    collectionSort.value=false
+  }
+  else{
+    salesSort.value=true
+    timeSort.value=false
+    collectionSort.value=true
+  }
+    getGoodsList(currentPage,pageSize,
+    priceSort,salesSort,shopId,timeSort,collectionSort)
+}
 
+const selectCustomAmount =() => {
+  selectedAmount.value = "价格"
+  priceSort.value=!priceSort.value
+    getGoodsList(currentPage,pageSize,
+    priceSort,salesSort,shopId,timeSort,collectionSort)
+}
 const addFocus=async (id)=>{
     const response=await setFocus(id)
     if(response.code==='0'){
@@ -159,8 +187,8 @@ priceSort,salesSort,shopid,timeSort,collectionSort)=>{
     const response=await shopGoodsPage(page,pageSize,
     priceSort,salesSort,shopid,timeSort,collectionSort)
     GoodsList.value=response.data
-
 }
+
 
 
 onMounted(()=>{
@@ -168,7 +196,6 @@ onMounted(()=>{
     getGoodsList(currentPage,pageSize,
     priceSort,salesSort,shopId,timeSort,collectionSort)
 })
-
 
 
 </script>
