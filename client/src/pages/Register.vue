@@ -55,14 +55,15 @@ let password=ref('')
 let confirmPass=ref('')
 
 async function sendCaptcha(){
-    const response=await captchaSend(email)
+    console.log('email',email)
+    const response=await captchaSend(email.value)
 }
 
 function handleBackClick() {
     router.push('/login');
 } 
 async function handleConfirmClick() {
-    const response = await register(captcha,email,password)
+    const response = await register(captcha.value,email.value,password.value)
     
     if(response.code==='0')
     {

@@ -195,12 +195,12 @@ const PushToDetail=async (id)=>{
 
 const getCatesGoods=(id)=>{
   category_id.value=id
-  getGoods(currentPage,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)
+  getGoods(currentPage.value,pageSize.value,priceSort.value,salesSort.value,scoreSort.value,searchText,category_id.value)
 
 }
 
 const getFilterGoods=()=>{
-  getGoods(currentPage,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)
+  getGoods(currentPage.value,pageSize.value,priceSort.value,salesSort.value,scoreSort.value,searchText,category_id.value)
 }
 
 const getGoods=async (page,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)=>{
@@ -210,7 +210,7 @@ const getGoods=async (page,pageSize,priceSort,salesSort,scoreSort,searchText,cat
 }
 
 const handleCurrentChange = (val) => {
-  getGoods(val,pageSize,priceSort,salesSort,scoreSort,searchText,category_id)
+  getGoods(val,pageSize.value,priceSort.value,salesSort.value,scoreSort.value,searchText,category_id.value)
   console.log(`current page: ${val}`)
 }
 
@@ -267,6 +267,6 @@ watch(selectedFilter, (newVal) => {
 
 onMounted(()=>{
   getCategories()
-  getGoods(1,8,priceSort,salesSort,scoreSort,searchText,category_id)
+  getGoods(1,8,priceSort.value,salesSort.value,scoreSort.value,searchText,category_id.value)
   })
 </script>
