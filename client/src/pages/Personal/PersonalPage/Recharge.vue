@@ -15,12 +15,12 @@
                         :size="50" :fit="contain" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
                         />
                 </el-col>
-                <el-col :span="6" style="color: #606266;"> 充值账号：{xxxx} </el-col>
+                <el-col :span="6" style="color: #606266;"> 充值账号：{{name}} </el-col>
                 <el-col :span="1" :offset="11" >
                     <img src="../../../assets/img/硬币.png" style="width: 30px;height: 30px;margin: 10px;">
                 </el-col>
-                <el-col :span="3" style="color: #606266;">
-                    当前余额：{xxxx}
+                <el-col :span="4" style="color: #606266;">
+                    当前余额：{{balance}}
                 </el-col>
             </el-row>
         </div>
@@ -54,15 +54,15 @@
         </el-row>
         <el-row style="margin-top: 50px;margin-bottom: 50px ;color: #606266;">
             <el-col :span="2">应付余额：</el-col>
-            <el-col :span="2"  style="font-size: x-large;color: red;">{{ payMoney }}元</el-col>
+            <el-col :span="10"  style="font-size: x-large;color: red;">{{ payMoney }}元</el-col>
         </el-row>
         <el-button type="primary" style="color: white;" color="#26b0d5" size="large" @click="confirmPay">确认支付</el-button>
     </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { charge } from '../../../api/user';
+import { charge ,getUserById} from '../../../api/user';
 
 const amounts = [10, 20, 30] // 定义金额选项
 const selectedAmount = ref(null) // 用于存储选中的金额
@@ -70,6 +70,19 @@ const isCustomAmount = ref(false) // 用于判断是否选中了自定义金额
 const showCustomAmountInput = ref(false) // 控制是否显示自定义金额输入框
 const customAmount = ref(0) // 存储自定义金额
 const payMoney = ref(0) // 应付余额
+const name=ref('')
+const balance=ref(0)
+async function getUser()
+{
+    const userId=localStorage.getItem('userId')
+    const response=await getUserById(userId)
+    name.value=response.data.name
+    balance.value=response.data.balance
+}
+
+onMounted(()=>{
+    getUser()
+});
 
 // 选择金额
 const selectAmount = (amount) => {
@@ -106,6 +119,7 @@ const confirmPay = async () => { // 添加 async 关键字
       message: '支付成功',
       type: 'success'
     });
+    getUser()
   } catch (error) {
     // 处理 charge 函数可能抛出的错误
     ElMessage({
