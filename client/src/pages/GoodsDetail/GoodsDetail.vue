@@ -128,7 +128,7 @@
 
     const setCollectGoods=async (id)=>{
       const response=await setCollect(id)
-      if(response.code==='0'){
+      if(response.code===0){
         ElMessage({
         message: '收藏成功',
         type: 'success',
@@ -143,7 +143,7 @@
 
     const BuyNow=async (id,num)=>{
       const response=await BuyGoodsNow(id,num)
-      if(response.code==='0'){
+      if(response.code===0){
         router.push('/order');
         ElMessage({
         message: '购买成功',
@@ -159,7 +159,7 @@
 
     const InsertToShoppingCart=async (id,num)=>{
       const response=await shoppingCartInsert(id,num)
-      if(response.code==='0'){
+      if(response.code===0){
         ElMessage({
         message: '加入购物车成功',
         type: 'success',

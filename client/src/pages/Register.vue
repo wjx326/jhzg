@@ -65,7 +65,7 @@ function handleBackClick() {
 async function handleConfirmClick() {
     const response = await register(captcha.value,email.value,password.value)
     
-    if(response.code==='0')
+    if(response.code===0)
     {
         router.push('/');
         ElMessage({

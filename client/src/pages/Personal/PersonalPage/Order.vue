@@ -222,7 +222,7 @@ const handleSearch=()=>{
 let confirmDelete=async (id)=>{
     deleteVisible.value = false;  
     const response =await deleteOrder(id)
-    if(response.code==='0')
+    if(response.code===0)
     {
         orderpage()
         ElMessage({
@@ -244,7 +244,7 @@ let handlePay=()=> {
 
 let confirmPay=async (id)=>{
     const response=await orderPay(id);
-    if(response.code==='0')
+    if(response.code===0)
     {
         orderpage()
         ElMessage({
