@@ -25,7 +25,7 @@
                 :class="{ selected: selectedFilter === filter }"
                 @click="toggleFilter(filter)"
                 >
-                <el-link :underline="false" href="" @click="getFilterGoods">{{ filter }}</el-link>
+                <el-link :underline="false" href="" @click="getFilterGoods(filter)">{{ filter }}</el-link>
                 </li>
             </ul> 
         </el-col>
@@ -199,7 +199,21 @@ const getCatesGoods=(id)=>{
 
 }
 
-const getFilterGoods=()=>{
+const getFilterGoods=(filter)=>{
+  if (filter === '按价格排序') {  
+        priceSort.value = true;  
+        salesSort.value = null;  
+        scoreSort.value = null;  
+      } else if (filter === '按销量排序') {  
+        priceSort.value = null;  
+        salesSort.value = true;  
+        scoreSort.value = null;  
+      } else if (filter === '按评分排序') {  
+        priceSort.value = null;  
+        salesSort.value = null;  
+        scoreSort.value = true;  
+      }  
+      console.log('priceSort.value,salesSort.value,scoreSort.value',priceSort.value,salesSort.value,scoreSort.value)
   getGoods(currentPage.value,pageSize.value,priceSort.value,salesSort.value,scoreSort.value,searchText,category_id.value)
 }
 
