@@ -1,0 +1,224 @@
+<template>
+  <div style="height: 800px">
+    <el-container>
+      <el-header style="height: auto">
+        <el-card style="text-align: left">
+          <div>商家已发货，等待买家确认</div>
+          <li style="font-size: small">
+            买家{{
+              buyer_info.nickname
+            }}还有1O天8小时37分来进行确认到贫。如果期间买家没有确认到货，也没有申请退款，本交易将自动结束,平台将把贷款支付给您。
+          </li>
+        </el-card>
+        <br />
+        <el-card style="text-align: left">
+          <div>物流信息</div>
+          <li style="font-size: small">
+            {{ order_info.delivery_time }}
+          </li>
+          <li style="font-size: small">
+            [淮安市]已离开江苏淮安分拨中心;发往云南昆明分拨中心
+          </li>
+        </el-card>
+      </el-header>
+      <el-main>
+        <el-card>
+          <el-descriptions title="买家信息" column="1">
+            <el-descriptions-item label="昵称:">
+              {{ buyer_info.nickname }}
+            </el-descriptions-item>
+            <el-descriptions-item label="收货地址:">{{
+              buyer_info.consignee +
+              ", " +
+              buyer_info.phone +
+              ", " +
+              buyer_info.address
+            }}</el-descriptions-item>
+          </el-descriptions>
+          <el-descriptions title="订单信息" column="4">
+            <el-descriptions-item label="订单编号:">
+              {{ order_info.number }}
+            </el-descriptions-item>
+            <el-descriptions-item label="下单时间:">{{
+              order_info.created_time
+            }}</el-descriptions-item>
+            <el-descriptions-item label="付款时间:">{{
+              order_info.checkout_time
+            }}</el-descriptions-item>
+            <el-descriptions-item label="发货时间:">{{
+              order_info.delivery_time
+            }}</el-descriptions-item>
+          </el-descriptions>
+          <div style="background-color: rgb(242, 242, 242)">
+            <el-table :data="OrderDetailList" style="width: 100%">
+              <el-table-column label="商品图片" width="180">
+                <template #default="scope">
+                  <div style="display: flex; align-items: center">
+                    <img
+                      v-if="scope.row.image"
+                      :src="scope.row.image"
+                      class="avatar"
+                    />
+                      <img v-else src="../assets/empty.png" class="avatar"
+                    />
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="name" label="商品名称" width="180" />
+              <el-table-column prop="price" label="单价(元)" width="180" />
+              <el-table-column prop="number" label="数量" width="180" />
+              <el-table-column label="商品总价(元)" width="150">
+                <template #default="scope">
+                  <div style="display: flex; align-items: center">
+                    <span style="margin-left: 10px">{{
+                      scope.row.price * scope.row.number
+                    }}</span>
+                  </div>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+          <br />
+          <div style="text-align: right; font-size: small">
+            <span>实收款: {{ total }} 元</span>
+          </div>
+        </el-card>
+      </el-main>
+    </el-container>
+  </div>
+</template>
+  
+  <script setup>
+import { ref, reactive, computed } from "vue";
+import '../style.css'
+import { useRouter } from "vue-router";
+import LocalCache from "../utils/cache.js";
+import axios from "axios";
+import { ElMain, ElMessage } from "element-plus";
+
+const buyer_info = reactive({
+  nickname: "test",
+  address: "asdfas adfasd asdf",
+  consignee: "王大崔",
+  phone: "148455648799",
+});
+const order_info = reactive({
+  created_time: "",
+  checkout_time: "",
+  delivery_time: "",
+  number: "",
+});
+// 订单部分
+const OrderDetailList = ref();
+const order = ref();
+
+
+// 总付款
+const total = computed(() => {
+  if (!order.value) {
+    return 0;
+  }
+  if (!OrderDetailList.value) {
+    return 0;
+  }
+  if (OrderDetailList.value.length <= 0) {
+    return 0;
+  }
+  // 统计订单价格,不包括运费
+  let t = 0;
+  for (let detail of OrderDetailList.value) {
+    t += detail.number * detail.price;
+  }
+  t += order.value.postage;
+  return t;
+});
+
+// 发货
+const onSend = () => {
+  // 发送修改请求
+  console.log("send!");
+};
+
+// 获取数据
+const router = useRouter();
+onMounted(() => {
+  console.log('test')
+  // 获取当前要修改的订单id和状态
+  let order_id = LocalCache.getCache("order_id");
+  let status = LocalCache.getCache("order_status");
+
+  if (!order_id || !status || status != 3) {
+    ElMessage.error("非法的订单编辑");
+    router.push("/index");
+    return;
+  }
+
+  // 加载数据
+  // 买家信息
+  axios
+    .get(
+      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/buyerInfo",
+      {
+        params: {
+          order_id: order_id,
+        },
+      }
+    )
+    .then((res) => {
+      if (res.data.code == 0) {
+        buyer_info.nickname = res.data.data.nickname;
+        buyer_info.detail = res.data.data.detail;
+        buyer_info.consignee = res.data.data.consignee;
+        buyer_info.phone = res.data.data.phone;
+      } else {
+        ElMessage.error(res.data.msg);
+      }
+    });
+  // 订单信息
+  axios
+    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/info", {
+      params: {
+        orderId: order_id,
+      },
+    })
+    .then((res) => {
+      if (res.data.code == 0) {
+        order.value = res.data.data;
+        order_info.checkout_time = order.value.checkout_time;
+        order_info.created_time = order.value.created_time;
+        order_info.number = order.value.number;
+        order_info.delivery_time = order.value.delivery_time;
+      } else {
+        ElMessage.error(res.data.msg);
+      }
+    });
+
+  // 订单详细信息
+  axios
+    .get(
+      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/detail",
+      {
+        params: {
+          order_id: order_id,
+        },
+      }
+    )
+    .then((res) => {
+      if (res.data.code == 0) {
+        OrderDetailList.value = res.data.data.records;
+      } else {
+        ElMessage.error(res.data.msg);
+      }
+    });
+});
+</script>
+  
+  <style>
+.avatar {
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+</style>
+  
+  

@@ -40,9 +40,11 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+
 import { House,ShoppingCart ,Tickets,Star,ChatDotRound,View,Location,Setting} from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
+import { getUserById } from '../../api/user';
+import {ElMessage} from 'element-plus';
 const router = useRouter();
 
 function handleFront(){
@@ -85,9 +87,18 @@ function handleRecharge(){
 function handleCreateStore(){
     router.push('/createstore')
 }
-function handleInStore(){
-    
+async function handleInStore(){
+    const response=await getUserById(localStorage.getItem(userId))
+    if(response.data.flag===1){
+        router.push('/back')
+    }else{
+        ElMessage({
+            message: '该用户未创建店铺，进入失败',
+            type: 'error'
+        });
+    }
 }
+
 </script>
 
 <style>

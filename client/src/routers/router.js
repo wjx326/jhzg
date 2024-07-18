@@ -21,14 +21,53 @@ import ChangeSelfInfo from "../pages/Personal/PersonalPage/ChangeSelfInfo.vue"
 import MessageList from '../pages/MessageList.vue'
 import Recharge from '../pages/Personal/PersonalPage/Recharge.vue'
 import CreateStore from '../pages/Personal/PersonalPage/CreateStore.vue'
-import GoodsList from '../pages/GoodsList.vue'
+import FGoodsList from '../pages/GoodsList.vue'
 import GoodsComment from  '../pages/GoodsComment.vue'
 import Goodsdetail from '../pages/GoodsDetail/Detail.vue'
+import BackShop from '../../back-src/components/shop.vue'
+
+
+
+import MainPanel from "../../back-src/components/MainPanel.vue";
+import EditProfile from "../../back-src/components/EditProfile.vue"
+import GoodsList from "../../back-src/components/GoodsList.vue"
+import GoodEdit from "../../back-src/components/goods/GoodEdit.vue"
+import GoodPublish from "../../back-src/components/goods/GoodPublish.vue"
+import OrderList from "../../back-src/components/OrderList.vue"
+import OrderPay from "../../back-src/components/OrderPay.vue"
+import OrderSend from "../../back-src/components/OrderSend.vue"
+import OrderConfirm from "../../back-src/components/OrderConfirm.vue"
+
 // 创建路由对象,声明路由规则
 const router = createRouter({
 
     history : createWebHashHistory(),
     routes : [
+        {
+            path:'/back',
+            component:BackShop,
+            children:[
+                { path: "/index", component: MainPanel },
+                { path: "/shopedit", component: EditProfile },
+                { path: "/goodsList", component: GoodsList },
+                { path: "/orderList", component: OrderList},
+                {
+                path: "/orderList/pay",
+                component: OrderPay
+                },
+                {
+                path: "/orderList/send",
+                component: OrderSend
+                },
+                {
+                path: "/orderList/confirm",
+                component: OrderConfirm
+                },
+                { path: "/uploadGoods", component: GoodPublish },
+                { path: "/editGoods", component: GoodEdit },
+                { path: "/test", component: OrderList }
+            ]
+        },
         {
             path:'/',
             redirect:'/login'
@@ -62,7 +101,7 @@ const router = createRouter({
               {
                 path : '/goodslist',
                 name:'Goodslist',
-                component:GoodsList
+                component:FGoodsList
                 },
               {
                     path : '/goodscomment',
