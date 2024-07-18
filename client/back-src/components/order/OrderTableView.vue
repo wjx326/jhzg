@@ -21,6 +21,12 @@ import GoodsTableView from "../order/GoodsTableView.vue";
 import axios from "axios";
 import { ElMain, ElMessage } from "element-plus";
 
+
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  token: `${token}`
+};
 // const { orderList } = defineProps(["orderList"]);
 const orderList2 = ref([])
 
@@ -34,11 +40,12 @@ console.log(orderList)
         // 获取订单详细信息
         axios
           .get(
-            "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/detail",
+            "/api/admin/order/detail",
             {
               params: {
                 order_id: orderList[i].id,
-              },
+              }
+              ,headers:headers
             }
           )
           .then((res) => {
@@ -71,7 +78,7 @@ defineExpose({ getData })
 //         // 获取订单详细信息
 //         axios
 //           .get(
-//             "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/detail",
+//             "/api/admin/order/detail",
 //             {
 //               params: {
 //                 order_id: newVal[i].id,

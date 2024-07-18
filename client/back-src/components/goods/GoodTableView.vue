@@ -30,6 +30,12 @@ import { ElMessage } from "element-plus";
 const { goodsList } = defineProps(["goodsList"]);
 import {useRouter} from 'vue-router'
 
+
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  token: `${token}`
+};
 const router = useRouter();
 const edit = (id) => {
   LocalCache.setCache('goods_id',id);
@@ -38,11 +44,11 @@ const edit = (id) => {
 const down = (id) => {
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/goods/create?apifoxApiId=192521383",
+      "/api/admin/goods/create",
       {
         id: id,
         status: 0,
-      }
+      },{headers:headers}
     )
     .then((res) => {
       if (res.data.code == 0) {

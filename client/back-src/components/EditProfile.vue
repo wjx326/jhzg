@@ -56,9 +56,12 @@ import '../style.css'
 const currentInstance = ref();
 const router = useRouter();
 
+const token = localStorage.getItem("userToken");
+
+
 // 图片头文件
 const headers = {
-  "Content-Type": "multipart/form-data",
+  "Content-Type": "multipart/form-data",token: `${token}`
 };
 const image = ref();
 // 图片校验
@@ -100,8 +103,8 @@ const confirmUpload = function () {
   // 发送图片
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/user/common/upload",
-      param
+      "/api/user/common/upload",
+      param,{headers:headers}
     )
     .then((res) => {
       // 接收地址
@@ -131,13 +134,16 @@ const onSubmit = () => {
   console.log("submit!");
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/shop/update",
+      "/api/admin/shop/update",
       {
         description: form.description,
         image: form.image,
         name: form.name,
         phone: form.phone,
-      }
+      },  
+      {  
+        headers: headers, // 确保 headers 变量已经在此之前被定义  
+      } 
     )
     .then((response) => {
       if (response.data.code == 0) {

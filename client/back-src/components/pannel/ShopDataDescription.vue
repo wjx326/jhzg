@@ -34,7 +34,11 @@ const order_today = ref(0);
 
 const goods_count = ref(0)
 const fans_count = ref(0)
+const token = localStorage.getItem("userToken");
 
+const headers = {
+  token: `${token}`
+};
 
 onMounted(() => {
   // 获取昨天，今天日期
@@ -44,11 +48,12 @@ onMounted(() => {
   // 根据查询昨日商铺销售额
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/sales",
+      "/api/admin/vercel/sales",
       {
         params: {
           date: formatDate(yesterday),
         },
+        headers:headers
       }
     )
     .then((response) => {
@@ -57,7 +62,7 @@ onMounted(() => {
   // 根据查询今日商铺销售额
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/sales",
+      "/api/admin/vercel/sales",
       {
         params: {
           date: formatDate(today),
@@ -71,7 +76,7 @@ onMounted(() => {
   // 根据查询昨日商铺订单数
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/count",
+      "/api/admin/vercel/count",
       {
         params: {
           date: formatDate(yesterday),
@@ -84,7 +89,7 @@ onMounted(() => {
   // 根据查询今日商铺订单数
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/count",
+      "/api/admin/vercel/count",
       {
         params: {
           date: formatDate(today),
@@ -97,7 +102,7 @@ onMounted(() => {
     // 根据商铺id查询商品计数
     axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/goods"
+      "/api/admin/vercel/goods"
     )
     .then((response) => {
       goods_count.value = response.data.data;
@@ -105,7 +110,7 @@ onMounted(() => {
     // 根据商铺id查询粉丝数
     axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/fans"
+      "/api/admin/vercel/fans"
     )
     .then((response) => {
       fans_count.value = response.data.data;

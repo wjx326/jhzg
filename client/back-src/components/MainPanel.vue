@@ -48,13 +48,18 @@ const undelivered_count = ref(0);
 
 
 const rate = ref(0.0);
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  token: `${token}`
+};
 
 onMounted(() => {
 
 
   // 查询所有状态订单计数
   axios
-    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/order")
+    .get("/api/admin/vercel/order",{headers:headers})
     .then((response) => {
       // 计数 1待付款 2待发货 3待收货 4待评价 5退款/售后 6完成
 
@@ -72,7 +77,7 @@ onMounted(() => {
     });
   // 查询
   axios
-    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/score")
+    .get("/api/admin/vercel/score",{headers:headers})
     .then((response) => {
       rate.value = response.data.data;
     });

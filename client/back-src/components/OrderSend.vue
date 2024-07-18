@@ -120,15 +120,23 @@ const total = computed(() => {
   return t;
 });
 
+const token = localStorage.getItem("userToken");
+
+const headers = {
+  token: `${token}`
+};
 // 发货
 const onSend = () => {
   // 发送修改请求
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/deliver",
+      "/api/admin/order/deliver",
       {
         order_id: order.value.id,
-      }
+      },  
+      {  
+        headers: headers, // 确保 headers 变量已经在此之前被定义  
+      } 
     )
     .then((res) => {
       if (res.data.code == 0) {
@@ -157,11 +165,11 @@ onMounted(() => {
   // 买家信息
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/buyerInfo",
+      "/api/admin/order/buyerInfo",
       {
         params: {
           order_id: order_id,
-        },
+        },headers:headers
       }
     )
     .then((res) => {
@@ -176,10 +184,10 @@ onMounted(() => {
     });
   // 订单信息
   axios
-    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/info", {
+    .get("/api/admin/order/info", {
       params: {
         orderId: order_id,
-      },
+      },headers:headers
     })
     .then((res) => {
       if (res.data.code == 0) {
@@ -195,11 +203,11 @@ onMounted(() => {
   // 订单详细信息
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/detail",
+      "/api/admin/order/detail",
       {
         params: {
           order_id: order_id,
-        },
+        },headers:headers
       }
     )
     .then((res) => {

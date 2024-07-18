@@ -9,14 +9,18 @@
 import {onMounted, reactive} from "vue"
 import axios from "axios"
 
+const token = localStorage.getItem("userToken");
 
+const headers = {
+  token: `${token}`
+};
 const goodsList = reactive([
 ]);
 
 onMounted(() => {
   // 根据商铺id查询热销商品列表
   axios
-    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/vercel/hotgoods")
+    .get("/api/admin/vercel/hotgoods",{headers:headers})
     .then((response) => {
       let count = 0;
       Object.assign(goodsList, [])

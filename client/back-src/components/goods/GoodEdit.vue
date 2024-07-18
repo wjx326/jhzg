@@ -90,11 +90,14 @@ import LocalCache from '../../utils/cache.js';
 import { useRouter } from "vue-router";
 const image = ref();
 let goods_id = -1;
+const token = localStorage.getItem("userToken");
+
 
 const router = useRouter();
 // 图片头文件
 const headers = {
   "Content-Type": "multipart/form-data",
+  token: `${token}`
 };
 // 图片校验
 const beforeAvatarUpload = function (rawFile) {
@@ -137,8 +140,8 @@ const confirmUpload = function () {
   // 发送图片
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/user/common/upload",
-      param
+      "/api/user/common/upload",
+      param,{headers:headers}
     )
     .then((res) => {
       // 接收地址
@@ -211,7 +214,7 @@ const onSubmit = function () {
   // 修改商品
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/goods/create?apifoxApiId=192521383",
+      "/api/admin/goods/create",
       {
         category_id: form.category,
         description: form.description,
@@ -222,6 +225,7 @@ const onSubmit = function () {
         store: form.stock,
         id: goods_id
       }
+      ,{headers:headers}
     )
     .then((res) => {
       if (res.data.code == 0) {
@@ -241,7 +245,7 @@ onMounted(() => {
   if(goods_id)
   {
     // 初始化数据
-    axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/admin/goods/' + goods_id)
+    axios.get('/api/admin/goods/' + goods_id,{headers:headers})
     .then((res) => {
       if(res.data.code == 0)
     {

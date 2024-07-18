@@ -90,9 +90,14 @@ import '../../style.css'
 
 const image = ref();
 
+const token = localStorage.getItem("userToken");
+
+
+
 // 图片头文件
 const headers = {
   "Content-Type": "multipart/form-data",
+  token: `${token}`
 };
 // 图片校验
 const beforeAvatarUpload = function (rawFile) {
@@ -135,8 +140,8 @@ const confirmUpload = function () {
   // 发送图片
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/user/common/upload",
-      param
+      "/api/user/common/upload",
+      param,{headers:headers}
     )
     .then((res) => {
       // 接收地址
@@ -208,7 +213,7 @@ const form = ref({
 const onSubmit = function () {
   axios
     .post(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/goods/create?apifoxApiId=192417362",
+      "/api/admin/goods/create",
       {
         category_id: form.category,
         description: form.description,
@@ -217,7 +222,7 @@ const onSubmit = function () {
         price: form.price,
         status: 1,
         store: form.stock,
-      }
+      },{headers:headers}
     )
     .then((res) => {
       if (res.data.code == 0) {

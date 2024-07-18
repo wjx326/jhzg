@@ -36,12 +36,16 @@ import { ElMessage } from "element-plus";
 
 const goodsId = ref(null);
 const activeName = ref("first");
+const token = localStorage.getItem("userToken");
 
+const headers = {
+  token: `${token}`
+};
 
 // 搜索商品
 const search = () => {
   if(goodsId.value != null)
-    axios.get('http://127.0.0.1:4523/m1/4784568-4438548-default/admin/goods/' + goodsId.value)
+    axios.get('/api/admin/goods/' + goodsId.value,{headers:headers})
   .then((res) => {
     if( res.data.code == 0)
   {
@@ -97,12 +101,13 @@ const tableData = ref([
 // 获取数据
 const getData = function () {
   axios
-    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/goods/page", {
+    .get("/api/admin/goods/page", {
       params: {
         page: filter.page,
         pageSize: filter.pageSize,
         status: filter.status,
       },
+      headers:headers
     })
     .then((res) => {
       if (res != 0) {

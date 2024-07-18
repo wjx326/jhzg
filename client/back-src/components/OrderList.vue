@@ -98,11 +98,15 @@ const orderStatuses = [
 ];
 
 const orderList = ref([]);
+const token = localStorage.getItem("userToken");
 
+const headers = {
+  token: `${token}`
+};
 //  筛选，得到的数据传给 子组件
 const getData = () => {
   axios
-    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/page", {
+    .get("/api/admin/order/page", {
       params: {
         page: 1,
         pageSize: 10,
@@ -111,7 +115,7 @@ const getData = () => {
         end_date: form.end_time,
         status: form.orderStatus,
         goods_id: form.goodId,
-      },
+      },headers:headers
     })
     .then((response) => {
       if (response.data.code == 0) {

@@ -111,7 +111,11 @@ const order_info = reactive({
 // 订单部分
 const OrderDetailList = ref();
 const order = ref();
+const token = localStorage.getItem("userToken");
 
+const headers = {
+  token: `${token}`
+};
 
 // 总付款
 const total = computed(() => {
@@ -157,11 +161,12 @@ onMounted(() => {
   // 买家信息
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/buyerInfo",
+      "/api/admin/order/buyerInfo",
       {
         params: {
           order_id: order_id,
         },
+        headers:headers
       }
     )
     .then((res) => {
@@ -176,10 +181,10 @@ onMounted(() => {
     });
   // 订单信息
   axios
-    .get("http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/info", {
+    .get("/api/admin/order/info", {
       params: {
         orderId: order_id,
-      },
+      },headers:headers
     })
     .then((res) => {
       if (res.data.code == 0) {
@@ -196,11 +201,11 @@ onMounted(() => {
   // 订单详细信息
   axios
     .get(
-      "http://127.0.0.1:4523/m1/4784568-4438548-default/admin/order/detail",
+      "/api/admin/order/detail",
       {
         params: {
           order_id: order_id,
-        },
+        },headers:headers
       }
     )
     .then((res) => {
