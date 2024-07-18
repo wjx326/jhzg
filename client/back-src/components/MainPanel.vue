@@ -19,7 +19,10 @@
     </el-row>
     <el-row :gutter="0">
       <el-col :span="10" class="sales_chart">
-        <div style="margin-top: 20px">这里展示图表</div>
+        <div style="margin-top: 20px">
+          每日访问用户量
+          <img src="../assets/data.jpg"  />
+        </div>
       </el-col>
       <el-col :span="10" class="rate">
         <div style="margin-top: 20px">店铺评分</div>
