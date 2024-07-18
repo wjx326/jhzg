@@ -5,7 +5,7 @@
         <img src="../assets/logo.png" style="height: 50px; width: 200px" />
       </span>
       <el-menu
-        default-active="2"
+        default-active="$route.path"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
