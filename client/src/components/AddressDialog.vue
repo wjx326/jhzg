@@ -102,7 +102,7 @@ const confirmDialog = async() => {
   {
     const response=await addressSubmit(form.value.address[1],form.value.name,form.value.detailAddress,
     form.value.address[2],form.value.phoneNum,form.value.address[0],form.value.sex)
-    if(response.code==='200')
+    if(response.code==='0')
       {
         addressPage(1,5)
           ElMessage({
@@ -118,7 +118,7 @@ const confirmDialog = async() => {
   }else{
     const response=await addressUpdate(form.value.id,form.value.address[1],form.value.name,form.value.detailAddress,
     form.value.address[2],form.value.phoneNum,form.value.address[0],form.value.sex)
-    if(response.code==='200')
+    if(response.code==='0')
       {
         addressPage(1,5)
           ElMessage({

@@ -55,7 +55,7 @@ const router = useRouter();
 async function handleLoginClick() {
     const response = await login(name.value,password.value)
     
-    if(response.code==='200')
+    if(response.code==='0')
     {
         const userInfo=await getUserById(response.data.id)
         console.log(userInfo.data)

@@ -170,7 +170,7 @@ const collectGoods=ref([])
 
 const deleteCollect=async (id)=>{
   const response=await collectDelete(id)
-  if(response.code==='200'){
+  if(response.code==='0'){
     getCollectGoods(currentPage,8)
         ElMessage({
         message: '删除成功',
@@ -192,7 +192,7 @@ const PushToDetail=async (id)=>{
 
 const InsertToShoppingCart=async (id,num)=>{
       const response=await shoppingCartInsert(id,num)
-      if(response.code==='200'){
+      if(response.code==='0'){
         ElMessage({
         message: '加入购物车成功',
         type: 'success',
