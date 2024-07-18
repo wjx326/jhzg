@@ -3,13 +3,13 @@
     <div class="avator">
       <el-avatar :size="50"  @error="errorHandler">
         <img
-          src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
+          :src="image"
         />
       </el-avatar>
     </div>
     <el-dropdown style="display:flex;align-items:center">
       <span class="el-dropdown-link">
-        {{username}}
+        {{shopname}}
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
@@ -27,8 +27,26 @@
 const errorHandler = () => true;
 import { ArrowDown } from "@element-plus/icons-vue";
 import '../style.css'
+import {getShopByUserId} from '../../src/api/shop'
 
-const username = "张三水果店"
+const shopname =ref('')
+const image=ref('')
+
+const getShop=async ()=>{
+  const userId=localStorage.getItem("userId")
+  const res=await getShopByUserId(userId)
+  shopname.value=res.data.name
+  image.value=res.data.image
+
+}
+
+onMounted(()=>{
+  getShop()
+})
+
+
+
+
 </script>
 
 <style scoped>

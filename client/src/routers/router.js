@@ -45,6 +45,7 @@ const router = createRouter({
     routes : [
         {
             path:'/back',
+            redirect:'/goodsList',
             component:BackShop,
             children:[
                 { path: "/index", component: MainPanel },
