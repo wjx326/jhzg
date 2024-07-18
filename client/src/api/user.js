@@ -7,7 +7,7 @@ let setAuthToken=(token)=> {
 const token = localStorage.getItem("userToken");
 
 const headers = {
-  'Authorization': `Bearer ${token}`
+   token: `${token}`
 };
 
   //登录

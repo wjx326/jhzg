@@ -4,7 +4,7 @@ import axios from 'axios';
 const token = localStorage.getItem("userToken");
 
 const headers = {
-  'Authorization': `Bearer ${token}`
+   token: `${token}`
 };
 
 //商品收藏
