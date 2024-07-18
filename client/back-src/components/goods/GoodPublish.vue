@@ -45,11 +45,9 @@
                 :headers="headers"
                 :show-file-list="false"
                 :before-upload="beforeAvatarUpload"
-                style="width: 200px; height: 200px; background-color: aliceblue"
               >
                 <img v-if="form.url" :src="form.url" class="avatar" />
                 <el-icon
-                  style="top: 75px"
                   size="48px"
                   v-else
                   class="avatar-uploader-icon"
